@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:soul_sphere/app/constants/app_colors.dart';
-import 'package:soul_sphere/presentation/screens.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/float_builder.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/nav_items.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/navigator_builder.dart';
 import 'package:soul_sphere/presentation/widgets/nav_bar.dart';
 import 'package:soul_sphere/presentation/widgets/nav_model.dart';
 
@@ -12,36 +13,19 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
-  final homeNavKey = GlobalKey<NavigatorState>();
-  final momentNavKey = GlobalKey<NavigatorState>();
-  final chatNavKey = GlobalKey<NavigatorState>();
-  final profileNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> homeNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> momentNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> chatNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> profileNavKey = GlobalKey<NavigatorState>();
   int selectedTab = 0;
-  List<NavModel> items = [];
+  late List<NavModel> items;
 
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
 
-    items = [
-      NavModel(
-        page: const HomeContent(),
-        navKey: homeNavKey,
-      ),
-      NavModel(
-        page: const MomentScreen(),
-        navKey: momentNavKey,
-      ),
-      NavModel(
-        page: const ChatScreen(),
-        navKey: chatNavKey,
-      ),
-      NavModel(
-        page: const ProfileScreen(),
-        navKey: profileNavKey,
-      ),
-    ];
+    items = getNavItems(homeNavKey, momentNavKey, chatNavKey, profileNavKey);
   }
 
   @override
@@ -69,49 +53,24 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     return Scaffold(
       body: IndexedStack(
         index: selectedTab,
-        children: items
-            .map((page) => Navigator(
-                  key: page.navKey,
-                  onGenerateInitialRoutes: (navigator, initialRoute) {
-                    return [MaterialPageRoute(builder: (context) => page.page)];
-                  },
-                ))
-            .toList(),
+        children: items.map((page) => buildNavigator(page)).toList(),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Container(
-        margin: const EdgeInsets.only(top: 35),
-        height: 60,
-        width: 60,
-        child: FloatingActionButton(
-          backgroundColor: AppColors.white,
-          elevation: 0,
-          onPressed: () => debugPrint("Add Button pressed"),
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(width: 3, color: AppColors.purple),
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: const Icon(
-            Icons.add,
-            color: AppColors.purple,
-          ),
-        ),
-      ),
+      floatingActionButton: buildFloatingActionButton(),
       bottomNavigationBar: NavBar(
         pageIndex: selectedTab,
-        onTap: (index) {
-          if (index == selectedTab) {
-            items[index]
-                .navKey
-                .currentState
-                ?.popUntil((route) => route.isFirst);
-          } else {
-            setState(() {
-              selectedTab = index;
-            });
-          }
-        },
+        onTap: _onNavBarTap,
       ),
     );
+  }
+
+  void _onNavBarTap(int index) {
+    if (index == selectedTab) {
+      items[index].navKey.currentState?.popUntil((route) => route.isFirst);
+    } else {
+      setState(() {
+        selectedTab = index;
+      });
+    }
   }
 }
