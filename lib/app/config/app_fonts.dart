@@ -3,9 +3,8 @@ import 'package:soul_sphere/app/constants/app_colors.dart';
 
 class AppFonts {
   static const TextStyle appTitle = TextStyle(
-    fontFamily: 'Lora',
-    fontWeight: FontWeight.w400,
+    fontWeight: FontWeight.w500,
     color: AppColors.black,
-    fontSize: 22,
+    fontSize: 23,
   );
 }
