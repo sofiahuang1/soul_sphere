@@ -15,4 +15,5 @@ class AppColors {
   static const Color purple = Color.fromARGB(255, 164, 100, 221);
   static const Color white = Colors.white;
   static Color opacityWhite = Colors.white.withOpacity(0.7);
+  static const Color black = Colors.black;
 }
