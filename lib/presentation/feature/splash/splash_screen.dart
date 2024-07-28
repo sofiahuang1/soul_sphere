@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     Future.delayed(const Duration(milliseconds: 4000), () {
-      context.go('/home');
+      context.go('/sign_up');
     });
   }
 

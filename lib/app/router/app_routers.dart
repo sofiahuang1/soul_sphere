@@ -1,4 +1,6 @@
 import 'package:go_router/go_router.dart';
+import 'package:soul_sphere/presentation/feature/authentication/log_in.dart';
+import 'package:soul_sphere/presentation/feature/authentication/sign_up.dart';
 import 'package:soul_sphere/presentation/screens.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -6,6 +8,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/',
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: '/sign_up',
+      builder: (context, state) => const SignUp(),
+    ),
+    GoRoute(
+      path: '/log_in',
+      builder: (context, state) => const LogIn(),
     ),
     GoRoute(
       path: '/home',
