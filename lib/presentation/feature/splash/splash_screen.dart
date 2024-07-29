@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/config/app_fonts.dart';
 import 'package:soul_sphere/app/constants/app_assets.dart';
 import 'package:soul_sphere/app/constants/app_constants.dart';
+import 'package:soul_sphere/app/router/app_paths.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -35,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     Future.delayed(const Duration(milliseconds: 4000), () {
-      context.go('/sign_up');
+      context.go(AppPaths.authPath);
     });
   }
 

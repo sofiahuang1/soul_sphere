@@ -1,3 +1,4 @@
+export 'package:soul_sphere/presentation/feature/authentication/auth.dart';
 export 'package:soul_sphere/presentation/feature/chat/chat_screen.dart';
 export 'package:soul_sphere/presentation/feature/home/home_content.dart';
 export 'package:soul_sphere/presentation/feature/home/home_screen.dart';
