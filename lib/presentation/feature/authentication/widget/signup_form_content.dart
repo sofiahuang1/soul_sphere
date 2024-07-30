@@ -4,6 +4,7 @@ import 'package:soul_sphere/app/constants/app_constants.dart';
 import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/sign_up/signup_bloc.dart';
 import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/sign_up/signup_event.dart';
 import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/sign_up/signup_state.dart';
+import 'package:soul_sphere/presentation/widgets/gradient_button.dart';
 
 import 'custom_text_field.dart';
 
@@ -79,11 +80,11 @@ class SignupFormContentState extends State<SignupFormContent> {
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: ElevatedButton(
+                child: GradientButton(
+                  text: AppConstants.signUp,
                   onPressed: () {
                     context.read<SignupBloc>().add(SignupSubmitted());
                   },
-                  child: const Text(AppConstants.signUp),
                 ),
               ),
               if (state.isSubmitting) const CircularProgressIndicator(),

@@ -4,6 +4,7 @@ import 'package:soul_sphere/app/constants/app_constants.dart';
 import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/log_in/log_in_bloc.dart';
 import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/log_in/log_in_event.dart';
 import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/log_in/log_in_state.dart';
+import 'package:soul_sphere/presentation/widgets/gradient_button.dart';
 
 import 'custom_text_field.dart';
 
@@ -68,11 +69,11 @@ class LoginFormContentState extends State<LoginFormContent> {
               const SizedBox(height: 16),
               Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: ElevatedButton(
+                child: GradientButton(
+                  text: AppConstants.logIn,
                   onPressed: () {
                     context.read<LoginBloc>().add(LoginSubmitted());
                   },
-                  child: const Text(AppConstants.logIn),
                 ),
               ),
               if (state.isSubmitting) const CircularProgressIndicator(),
