@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soul_sphere/app/constants/app_constants.dart';
-import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/sign_up/signup_bloc.dart';
-import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/sign_up/signup_event.dart';
-import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/sign_up/signup_state.dart';
+import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/log_in/log_in_bloc.dart';
+import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/log_in/log_in_event.dart';
+import 'package:soul_sphere/presentation/feature/authentication/auth_bloc/log_in/log_in_state.dart';
 
 import 'custom_text_field.dart';
 
-class SignupFormContent extends StatefulWidget {
-  const SignupFormContent({super.key});
+class LoginFormContent extends StatefulWidget {
+  const LoginFormContent({super.key});
 
   @override
-  SignupFormContentState createState() => SignupFormContentState();
+  LoginFormContentState createState() => LoginFormContentState();
 }
 
-class SignupFormContentState extends State<SignupFormContent> {
-  final _usernameController = TextEditingController();
+class LoginFormContentState extends State<LoginFormContent> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   bool _isPasswordVisible = false;
 
   @override
   void dispose() {
-    _usernameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     super.dispose();
@@ -32,26 +30,17 @@ class SignupFormContentState extends State<SignupFormContent> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(35.0),
-      child: BlocBuilder<SignupBloc, SignupState>(
+      child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               CustomTextField(
-                controller: _usernameController,
-                labelText: AppConstants.username,
-                errorText: state.usernameError,
-                onChanged: (username) {
-                  context.read<SignupBloc>().add(UsernameChanged(username));
-                },
-              ),
-              const SizedBox(height: 16),
-              CustomTextField(
                 controller: _emailController,
                 labelText: AppConstants.email,
                 errorText: state.emailError,
                 onChanged: (email) {
-                  context.read<SignupBloc>().add(EmailChanged(email));
+                  context.read<LoginBloc>().add(EmailChanged(email));
                 },
               ),
               const SizedBox(height: 16),
@@ -73,7 +62,7 @@ class SignupFormContentState extends State<SignupFormContent> {
                   },
                 ),
                 onChanged: (password) {
-                  context.read<SignupBloc>().add(PasswordChanged(password));
+                  context.read<LoginBloc>().add(PasswordChanged(password));
                 },
               ),
               const SizedBox(height: 16),
@@ -81,14 +70,14 @@ class SignupFormContentState extends State<SignupFormContent> {
                 padding: const EdgeInsets.all(18.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    context.read<SignupBloc>().add(SignupSubmitted());
+                    context.read<LoginBloc>().add(LoginSubmitted());
                   },
-                  child: const Text(AppConstants.signUp),
+                  child: const Text(AppConstants.logIn),
                 ),
               ),
               if (state.isSubmitting) const CircularProgressIndicator(),
-              if (state.isSuccess) const Text(AppConstants.signUpSuccessful),
-              if (state.isFailure) const Text(AppConstants.signUpFailed),
+              if (state.isSuccess) const Text(AppConstants.logInSuccessful),
+              if (state.isFailure) const Text(AppConstants.logInFailed),
             ],
           );
         },

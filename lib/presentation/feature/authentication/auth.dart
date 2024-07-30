@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soul_sphere/app/constants/app_assets.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
-import 'package:soul_sphere/presentation/feature/authentication/widget/login_form.dart';
+import 'package:soul_sphere/presentation/feature/authentication/widget/login_form_content.dart';
 import 'package:soul_sphere/presentation/feature/authentication/widget/signup_form_content.dart';
 
 class Auth extends StatelessWidget {
@@ -55,7 +55,7 @@ class Auth extends StatelessWidget {
                       child: TabBarView(
                         children: [
                           SignupFormContent(),
-                          LoginForm(),
+                          LoginFormContent(),
                         ],
                       ),
                     ),

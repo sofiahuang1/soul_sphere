@@ -1,19 +1,15 @@
-class SignupState {
-  final String username;
+class LoginState {
   final String email;
   final String password;
-  final String? usernameError;
   final String? emailError;
   final String? passwordError;
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
 
-  const SignupState({
-    this.username = '',
+  const LoginState({
     this.email = '',
     this.password = '',
-    this.usernameError,
     this.emailError,
     this.passwordError,
     this.isSubmitting = false,
@@ -21,22 +17,18 @@ class SignupState {
     this.isFailure = false,
   });
 
-  SignupState copyWith({
-    String? username,
+  LoginState copyWith({
     String? email,
     String? password,
-    String? usernameError,
     String? emailError,
     String? passwordError,
     bool? isSubmitting,
     bool? isSuccess,
     bool? isFailure,
   }) {
-    return SignupState(
-      username: username ?? this.username,
+    return LoginState(
       email: email ?? this.email,
       password: password ?? this.password,
-      usernameError: usernameError,
       emailError: emailError,
       passwordError: passwordError,
       isSubmitting: isSubmitting ?? this.isSubmitting,
