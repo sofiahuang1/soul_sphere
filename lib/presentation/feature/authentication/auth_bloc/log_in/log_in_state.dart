@@ -1,6 +1,6 @@
-class LoginState {
-  final String email;
-  final String password;
+import 'package:equatable/equatable.dart';
+
+class LoginState extends Equatable {
   final String? emailError;
   final String? passwordError;
   final bool isSubmitting;
@@ -8,8 +8,6 @@ class LoginState {
   final bool isFailure;
 
   const LoginState({
-    this.email = '',
-    this.password = '',
     this.emailError,
     this.passwordError,
     this.isSubmitting = false,
@@ -17,9 +15,11 @@ class LoginState {
     this.isFailure = false,
   });
 
+  @override
+  List<Object?> get props =>
+      [emailError, passwordError, isSubmitting, isSuccess, isFailure];
+
   LoginState copyWith({
-    String? email,
-    String? password,
     String? emailError,
     String? passwordError,
     bool? isSubmitting,
@@ -27,10 +27,8 @@ class LoginState {
     bool? isFailure,
   }) {
     return LoginState(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      emailError: emailError,
-      passwordError: passwordError,
+      emailError: emailError ?? this.emailError,
+      passwordError: passwordError ?? this.passwordError,
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
