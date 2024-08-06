@@ -36,7 +36,7 @@ class _SplashScreenState extends State<SplashScreen>
     );
 
     Future.delayed(const Duration(milliseconds: 4000), () {
-      context.go(AppPaths.authPath);
+      context.go(AppPaths.onBoardingPath);
     });
   }
 

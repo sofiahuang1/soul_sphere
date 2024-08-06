@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/router/app_paths.dart';
+import 'package:soul_sphere/presentation/feature/onboarding/introduction_screen.dart';
 import 'package:soul_sphere/presentation/screens.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -7,6 +8,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppPaths.splashPath,
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: AppPaths.onBoardingPath,
+      builder: (context, state) => const IntroductionScreen(),
     ),
     GoRoute(
       path: AppPaths.authPath,
