@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:soul_sphere/app/constants/app_assets.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
-import 'package:soul_sphere/app/constants/app_constants.dart';
-import 'package:soul_sphere/presentation/feature/authentication/widget/login_form_content.dart';
-import 'package:soul_sphere/presentation/feature/authentication/widget/signup_form_content.dart';
 
 class Auth extends StatelessWidget {
   const Auth({super.key});
@@ -39,28 +36,6 @@ class Auth extends StatelessWidget {
                 color: AppColors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(50),
-                ),
-              ),
-              child: const DefaultTabController(
-                length: 2,
-                child: Column(
-                  children: [
-                    TabBar(
-                      dividerHeight: 0,
-                      tabs: [
-                        Tab(text: AppConstants.signUp),
-                        Tab(text: AppConstants.logIn),
-                      ],
-                    ),
-                    Expanded(
-                      child: TabBarView(
-                        children: [
-                          SignupFormContent(),
-                          LoginFormContent(),
-                        ],
-                      ),
-                    ),
-                  ],
                 ),
               ),
             ),
