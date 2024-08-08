@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soul_sphere/app/constants/app_colors.dart';
 
 class SildeMainColumn extends StatelessWidget {
   const SildeMainColumn({
@@ -21,7 +22,11 @@ class SildeMainColumn extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Image.asset(imageUrl),
+        Image.asset(
+          imageUrl,
+          height: 270,
+          width: 180,
+        ),
         const SizedBox(height: 20),
         Text(
           title,
@@ -35,7 +40,7 @@ class SildeMainColumn extends StatelessWidget {
           caption,
           style: TextStyle(
             fontSize: captionSize,
-            color: Colors.grey[700],
+            color: AppColors.grey,
           ),
         ),
       ],

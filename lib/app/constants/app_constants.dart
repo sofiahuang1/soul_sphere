@@ -6,6 +6,8 @@ import '../../domain/model/slide_info.dart';
 class AppConstants {
   static const String appName = "Soul Sphere";
   static const String authorName = "Created by Sophia";
+  static const String skip = "Skip";
+  static const String start = "Start";
   static const String username = "Username";
   static const String email = "Email";
   static const String password = "Password";
@@ -21,16 +23,16 @@ class AppConstants {
 
   static final slides = <SlideInfo>[
     SlideInfo(
-        'Discover Collections',
-        'Explore wide range of stylish clothing options designed to fit every occasion and personal style.',
+        'Uncover Real Connections',
+        'Engage in conversations without the pressure of appearances. Our platform encourages authentic interactions based on who you are, not what you look like.',
         'assets/image/float_astro_planet.png'),
     SlideInfo(
-        'Fast & Free Shipping',
-        'Enjoy fast delivery on all orders across the globe, along with free shipping on purchases over 50 \u{20AC}.',
+        'Dynamic Chat Rooms',
+        'Join chat rooms tailored to your interests. From tech discussions to hobby groups, find your niche and meet like-minded individuals.',
         'assets/image/laptop_astro.png'),
     SlideInfo(
-        'Sustainable Practices',
-        'Eco-friendly materials and promote ethical manufacturing processes to minimize our environmental impact.',
+        'Interactive Forums',
+        'Post, comment, and debate in interactive forums. Share your thoughts, ask questions, and get involved in community-driven discussions.',
         'assets/image/posture_astro.png'),
   ];
 

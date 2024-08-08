@@ -21,8 +21,8 @@ class IntroPageView extends StatelessWidget {
                 title: slideData.title,
                 caption: slideData.caption,
                 imageUrl: slideData.imageUrl,
-                titleSize: 24.0,
-                captionSize: 17.0,
+                titleSize: 23.0,
+                captionSize: 15.0,
               ))
           .toList(),
     );

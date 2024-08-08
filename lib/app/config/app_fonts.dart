@@ -7,4 +7,10 @@ class AppFonts {
     color: AppColors.black,
     fontSize: 23,
   );
+
+  static const TextStyle onBoardingText = TextStyle(
+    fontWeight: FontWeight.w500,
+    color: AppColors.white,
+    fontSize: 16,
+  );
 }
