@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:soul_sphere/app/utils/validator.dart';
-import 'package:soul_sphere/domain/repository/authentication_repository.dart';
+import 'package:soul_sphere/domain/repository/auth_repository.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_event.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc({required AuthenticationRepository authenticationRepository})
+  LoginBloc({required AuthRepository authenticationRepository})
       : super(const LoginState()) {
     on<EmailChanged>((event, emit) {
       final emailError = Validators.validateEmail(event.email);

@@ -1,13 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:soul_sphere/app/utils/validator.dart';
-import 'package:soul_sphere/domain/repository/authentication_repository.dart';
+import 'package:soul_sphere/domain/usecase/sign_up_usecase.dart';
 
 import 'signup_event.dart';
 import 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc({required AuthenticationRepository authenticationRepository})
-      : super(const SignupState()) {
+  final SignUpUseCase signUpUseCase;
+
+  SignupBloc({required this.signUpUseCase}) : super(const SignupState()) {
     on<EmailChanged>((event, emit) {
       final emailError = Validators.validateEmail(event.email);
       emit(state.copyWith(emailError: emailError));
@@ -20,11 +21,31 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
     on<SignupSubmitted>((event, emit) async {
       emit(state.copyWith(isSubmitting: true));
-      await Future.delayed(const Duration(seconds: 2));
-      if (state.emailError == null && state.passwordError == null) {
-        emit(state.copyWith(isSubmitting: false, isSuccess: true));
-      } else {
-        emit(state.copyWith(isSubmitting: false, isFailure: true));
+
+      final emailError = Validators.validateEmail(event.email);
+      final passwordError = Validators.validatePassword(event.password);
+
+      if (emailError != null || passwordError != null) {
+        emit(state.copyWith(
+          isSubmitting: false,
+          emailError: emailError,
+          passwordError: passwordError,
+        ));
+        print("email error $emailError  pass error $passwordError");
+        return;
+      }
+
+      try {
+        final user = await signUpUseCase(event.email, event.password);
+        print('user: $user');
+        emit(state.copyWith(isSubmitting: false, isSuccess: true, user: user));
+      } catch (e) {
+        print("exeption $e");
+        emit(state.copyWith(
+          isSubmitting: false,
+          isFailure: true,
+          errorMessage: e.toString(),
+        ));
       }
     });
   }

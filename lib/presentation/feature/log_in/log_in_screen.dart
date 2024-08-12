@@ -21,7 +21,7 @@ class LogInScreen extends StatelessWidget {
             bottom: MediaQuery.sizeOf(context).height - 350,
             child: Container(
               decoration: const BoxDecoration(
-                gradient: AppColors.primaryGradient,
+                gradient: AppColors.secondaryGradient,
               ),
               child: Image.asset(
                 AppAssets.authBackAsset,

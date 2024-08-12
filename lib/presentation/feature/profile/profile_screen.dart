@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soul_sphere/presentation/feature/profile/widget/header_curve_gradient.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -6,7 +7,14 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(child: Text('Profile')),
+      body: Column(
+        children: [
+          HeaderCurveGradient(),
+          Expanded(
+            child: Center(child: Text('Profile')),
+          ),
+        ],
+      ),
     );
   }
 }

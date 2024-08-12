@@ -94,9 +94,12 @@ class SignUpFormState extends State<SignUpForm> {
                           ? null
                           : () {
                               if (_formKey.currentState?.validate() ?? false) {
-                                context
-                                    .read<SignupBloc>()
-                                    .add(SignupSubmitted());
+                                context.read<SignupBloc>().add(
+                                      SignupSubmitted(
+                                        email: _emailController.text,
+                                        password: _passwordController.text,
+                                      ),
+                                    );
                               }
                             },
                       style: ElevatedButton.styleFrom(
@@ -126,7 +129,7 @@ class SignUpFormState extends State<SignUpForm> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       const Text(
-                        'Already have account ? ',
+                        'Already have an account? ',
                         style: TextStyle(color: AppColors.lightGrey),
                       ),
                       GestureDetector(

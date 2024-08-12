@@ -86,7 +86,7 @@ class LogInFormState extends State<LogInForm> {
                   const SizedBox(height: 46.0),
                   Container(
                     decoration: BoxDecoration(
-                      gradient: AppColors.primaryGradient,
+                      gradient: AppColors.secondaryGradient,
                       borderRadius: BorderRadius.circular(28.0),
                     ),
                     child: ElevatedButton(
