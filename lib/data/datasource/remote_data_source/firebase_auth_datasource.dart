@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:soul_sphere/app/utils/encryption_password.dart';
 import 'package:soul_sphere/data/model/user_model.dart';
 
 class FirebaseAuthDataSource {
@@ -16,10 +17,8 @@ class FirebaseAuthDataSource {
         .get();
 
     if (querySnapshot.docs.isNotEmpty) {
-      print("user exists");
       return UserModel.fromFirestore(querySnapshot.docs.first);
     } else {
-      print("user doesn't exist");
       return null;
     }
   }
@@ -29,13 +28,17 @@ class FirebaseAuthDataSource {
       email: email,
       password: password,
     );
-    print("signup this user");
+
     final uid = userCredential.user?.uid;
     if (uid == null) {
       throw Exception('Cannot find uid for this user');
     }
 
-    final userModel = UserModel(id: uid, email: email);
+    final hashedPassword = EncryptionPassword.hashPassword(password);
+
+    final userModel =
+        UserModel(id: uid, email: email, password: hashedPassword);
+
     await firestore.collection('users').doc(uid).set(userModel.toMap());
 
     return userModel;

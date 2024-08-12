@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:soul_sphere/domain/entities/user_entity.dart';
 
 class UserModel extends UserEntity {
-  const UserModel({required super.id, required super.email});
+  const UserModel(
+      {required super.id, required super.email, required super.password});
 
   factory UserModel.fromFirestore(DocumentSnapshot doc) {
     return UserModel(
       id: doc['id'] as String,
       email: doc['email'] as String,
+      password: doc['password'] as String,
     );
   }
 
@@ -15,6 +17,7 @@ class UserModel extends UserEntity {
     return {
       'id': id,
       'email': email,
+      'password': password,
     };
   }
 }
