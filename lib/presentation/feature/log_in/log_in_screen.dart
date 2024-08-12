@@ -1,70 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:soul_sphere/app/constants/app_assets.dart';
+import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_bloc.dart';
-import 'package:soul_sphere/presentation/feature/log_in/bloc/login_event.dart';
-import 'package:soul_sphere/presentation/feature/log_in/bloc/login_state.dart';
-import 'package:soul_sphere/presentation/feature/sign_up/sign_up_screen.dart';
+import 'package:soul_sphere/presentation/feature/log_in/widget/log_in_form.dart';
 
-class LoginScreen extends StatelessWidget {
-  const LoginScreen({super.key});
+class LogInScreen extends StatelessWidget {
+  const LogInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: BlocProvider(
-          create: (_) => GetIt.instance<LoginBloc>(),
-          child: const LoginForm(),
-        ),
-      ),
-    );
-  }
-}
-
-class LoginForm extends StatelessWidget {
-  const LoginForm({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocListener<LoginBloc, LoginState>(
-      listener: (context, state) {
-        if (state.status == LoginStatus.submissionFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              const SnackBar(content: Text('Authentication Failure')),
-            );
-        } else if (state.status == LoginStatus.submissionSuccess) {
-          // Navigate to home or another screen
-        }
-      },
-      child: Column(
+      body: Stack(
         children: [
-          TextField(
-            onChanged: (email) =>
-                context.read<LoginBloc>().add(LoginEmailChanged(email)),
-            decoration: const InputDecoration(labelText: 'Email'),
+          Positioned(
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: MediaQuery.sizeOf(context).height - 350,
+            child: Container(
+              decoration: const BoxDecoration(
+                gradient: AppColors.primaryGradient,
+              ),
+              child: Image.asset(
+                AppAssets.authBackAsset,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
-          TextField(
-            onChanged: (password) =>
-                context.read<LoginBloc>().add(LoginPasswordChanged(password)),
-            decoration: const InputDecoration(labelText: 'Password'),
-            obscureText: true,
-          ),
-          ElevatedButton(
-            onPressed: () => context.read<LoginBloc>().add(LoginSubmitted()),
-            child: const Text('Login'),
-          ),
-          TextButton(
-            onPressed: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (_) => const SignUpScreen()),
-              );
-            },
-            child: const Text('Don\'t have an account? Sign Up'),
+          Positioned(
+            top: 300,
+            left: 0,
+            right: 0,
+            child: Container(
+              height: MediaQuery.of(context).size.height - 300,
+              decoration: const BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(50),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: BlocProvider(
+                  create: (_) => GetIt.instance<LoginBloc>(),
+                  child: const LogInForm(),
+                ),
+              ),
+            ),
           ),
         ],
       ),

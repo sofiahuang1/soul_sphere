@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBXUFQxSf0ScR8X3DCfCuy-pIQI4Cq9Gp8</string>
+	<string>AIzaSyDb_r--PNZXSsix0D-084ddnY6_X3mgER0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>804570926912</string>
+	<string>1066131039124</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.example.soulSphere</string>
 	<key>PROJECT_ID</key>
-	<string>soulsphere-fa388</string>
+	<string>soulsphere-f2e7f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>soulsphere-fa388.appspot.com</string>
+	<string>soulsphere-f2e7f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:804570926912:ios:d5c96cbe0e81540e05b4a5</string>
+	<string>1:1066131039124:ios:f9a69ee6c9e488b64e2581</string>
 </dict>
 </plist>

@@ -16,4 +16,6 @@ class AppColors {
   static const Color white = Colors.white;
   static Color opacityWhite = Colors.white.withOpacity(0.7);
   static const Color black = Colors.black;
+  static const Color transparent = Colors.transparent;
+  static const Color lightGrey = Colors.grey;
 }

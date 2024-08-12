@@ -1,39 +1,37 @@
 import 'package:equatable/equatable.dart';
-import 'package:soul_sphere/data/model/email.dart';
-import 'package:soul_sphere/data/model/password.dart';
 
-enum SignUpStatus {
-  pure,
-  valid,
-  invalid,
-  submissionInProgress,
-  submissionSuccess,
-  submissionFailure
-}
+class SignupState extends Equatable {
+  final String? emailError;
+  final String? passwordError;
+  final bool isSubmitting;
+  final bool isSuccess;
+  final bool isFailure;
 
-class SignUpState extends Equatable {
-  final Email email;
-  final Password password;
-  final SignUpStatus status;
-
-  const SignUpState({
-    this.email = const Email.pure(),
-    this.password = const Password.pure(),
-    this.status = SignUpStatus.pure,
+  const SignupState({
+    this.emailError,
+    this.passwordError,
+    this.isSubmitting = false,
+    this.isSuccess = false,
+    this.isFailure = false,
   });
 
-  SignUpState copyWith({
-    Email? email,
-    Password? password,
-    SignUpStatus? status,
+  @override
+  List<Object?> get props =>
+      [emailError, passwordError, isSubmitting, isSuccess, isFailure];
+
+  SignupState copyWith({
+    String? emailError,
+    String? passwordError,
+    bool? isSubmitting,
+    bool? isSuccess,
+    bool? isFailure,
   }) {
-    return SignUpState(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      status: status ?? this.status,
+    return SignupState(
+      emailError: emailError,
+      passwordError: passwordError,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
+      isSuccess: isSuccess ?? this.isSuccess,
+      isFailure: isFailure ?? this.isFailure,
     );
   }
-
-  @override
-  List<Object?> get props => [email, password, status];
 }

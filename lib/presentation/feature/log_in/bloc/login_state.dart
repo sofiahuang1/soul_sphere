@@ -1,39 +1,37 @@
 import 'package:equatable/equatable.dart';
-import 'package:soul_sphere/data/model/email.dart';
-import 'package:soul_sphere/data/model/password.dart';
-
-enum LoginStatus {
-  pure,
-  valid,
-  invalid,
-  submissionInProgress,
-  submissionSuccess,
-  submissionFailure
-}
 
 class LoginState extends Equatable {
-  final Email email;
-  final Password password;
-  final LoginStatus status;
+  final String? emailError;
+  final String? passwordError;
+  final bool isSubmitting;
+  final bool isSuccess;
+  final bool isFailure;
 
   const LoginState({
-    this.email = const Email.pure(),
-    this.password = const Password.pure(),
-    this.status = LoginStatus.pure,
+    this.emailError,
+    this.passwordError,
+    this.isSubmitting = false,
+    this.isSuccess = false,
+    this.isFailure = false,
   });
 
+  @override
+  List<Object?> get props =>
+      [emailError, passwordError, isSubmitting, isSuccess, isFailure];
+
   LoginState copyWith({
-    Email? email,
-    Password? password,
-    LoginStatus? status,
+    String? emailError,
+    String? passwordError,
+    bool? isSubmitting,
+    bool? isSuccess,
+    bool? isFailure,
   }) {
     return LoginState(
-      email: email ?? this.email,
-      password: password ?? this.password,
-      status: status ?? this.status,
+      emailError: emailError,
+      passwordError: passwordError,
+      isSubmitting: isSubmitting ?? this.isSubmitting,
+      isSuccess: isSuccess ?? this.isSuccess,
+      isFailure: isFailure ?? this.isFailure,
     );
   }
-
-  @override
-  List<Object?> get props => [email, password, status];
 }

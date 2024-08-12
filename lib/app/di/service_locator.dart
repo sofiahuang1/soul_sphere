@@ -14,9 +14,9 @@ void setupServiceLocator() {
     () => AuthenticationRepositoryImpl(firebaseAuth: getIt<FirebaseAuth>()),
   );
 
-  getIt.registerFactory<SignUpBloc>(
+  getIt.registerFactory<SignupBloc>(
     () =>
-        SignUpBloc(authenticationRepository: getIt<AuthenticationRepository>()),
+        SignupBloc(authenticationRepository: getIt<AuthenticationRepository>()),
   );
 
   getIt.registerFactory<LoginBloc>(

@@ -1,59 +1,30 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:soul_sphere/data/model/email.dart';
-import 'package:soul_sphere/data/model/password.dart';
+import 'package:bloc/bloc.dart';
+import 'package:soul_sphere/app/utils/validator.dart';
 import 'package:soul_sphere/domain/repository/authentication_repository.dart';
-
-import 'login_event.dart';
-import 'login_state.dart';
+import 'package:soul_sphere/presentation/feature/log_in/bloc/login_event.dart';
+import 'package:soul_sphere/presentation/feature/log_in/bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  final AuthenticationRepository _authenticationRepository;
-
   LoginBloc({required AuthenticationRepository authenticationRepository})
-      : _authenticationRepository = authenticationRepository,
-        super(const LoginState()) {
-    on<LoginEmailChanged>(_onEmailChanged);
-    on<LoginPasswordChanged>(_onPasswordChanged);
-    on<LoginSubmitted>(_onSubmitted);
-  }
+      : super(const LoginState()) {
+    on<EmailChanged>((event, emit) {
+      final emailError = Validators.validateEmail(event.email);
+      emit(state.copyWith(emailError: emailError));
+    });
 
-  void _onEmailChanged(LoginEmailChanged event, Emitter<LoginState> emit) {
-    final email = Email.dirty(event.email);
-    emit(state.copyWith(
-      email: email,
-      status: _validateState(email, state.password),
-    ));
-  }
+    on<PasswordChanged>((event, emit) {
+      final passwordError = Validators.validatePassword(event.password);
+      emit(state.copyWith(passwordError: passwordError));
+    });
 
-  void _onPasswordChanged(
-      LoginPasswordChanged event, Emitter<LoginState> emit) {
-    final password = Password.dirty(event.password);
-    emit(state.copyWith(
-      password: password,
-      status: _validateState(state.email, password),
-    ));
-  }
-
-  LoginStatus _validateState(Email email, Password password) {
-    if (!email.isValid || !password.isValid) {
-      return LoginStatus.invalid;
-    }
-    return LoginStatus.valid;
-  }
-
-  Future<void> _onSubmitted(
-      LoginSubmitted event, Emitter<LoginState> emit) async {
-    if (state.status == LoginStatus.valid) {
-      emit(state.copyWith(status: LoginStatus.submissionInProgress));
-      try {
-        await _authenticationRepository.logIn(
-          email: state.email.value,
-          password: state.password.value,
-        );
-        emit(state.copyWith(status: LoginStatus.submissionSuccess));
-      } catch (_) {
-        emit(state.copyWith(status: LoginStatus.submissionFailure));
+    on<LoginSubmitted>((event, emit) async {
+      emit(state.copyWith(isSubmitting: true));
+      await Future.delayed(const Duration(seconds: 2));
+      if (state.emailError == null && state.passwordError == null) {
+        emit(state.copyWith(isSubmitting: false, isSuccess: true));
+      } else {
+        emit(state.copyWith(isSubmitting: false, isFailure: true));
       }
-    }
+    });
   }
 }
