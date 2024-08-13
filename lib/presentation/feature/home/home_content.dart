@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
-import 'package:soul_sphere/app/router/app_paths.dart';
-import 'package:soul_sphere/app/utils/utils.dart';
 import 'package:soul_sphere/presentation/feature/home/user_bloc/user_bloc.dart';
 import 'package:soul_sphere/presentation/feature/home/user_bloc/user_event.dart';
 import 'package:soul_sphere/presentation/feature/home/user_bloc/user_state.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/xball_view.dart';
 import 'package:soul_sphere/presentation/widgets/custom_app_bar.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomeContentState createState() => _HomeContentState();
 }
 
@@ -49,18 +48,10 @@ class _HomeContentState extends State<HomeContent> {
                       } else if (state is UserLoading) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (state is UserLoaded) {
-                        return ListView.builder(
-                          itemCount: state.users.length,
-                          itemBuilder: (context, index) {
-                            final user = state.users[index];
-                            return ListTile(
-                              title: Text(Utils.truncateId(user.id)),
-                              onTap: () {
-                                context.push(
-                                    '${AppPaths.userDetailPagePath}/${user.id}');
-                              },
-                            );
-                          },
+                        return XBallView(
+                          mediaQueryData: MediaQuery.of(context),
+                          keywords: state.users.map((user) => user.id).toList(),
+                          highlight: const [],
                         );
                       } else if (state is UserError) {
                         return Center(child: Text(state.message));
