@@ -31,16 +31,13 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           emailError: emailError,
           passwordError: passwordError,
         ));
-        print("email error $emailError  pass error $passwordError");
         return;
       }
 
       try {
         final user = await signUpUseCase(event.email, event.password);
-        print('user: $user');
         emit(state.copyWith(isSubmitting: false, isSuccess: true, user: user));
       } catch (e) {
-        print("exeption $e");
         emit(state.copyWith(
           isSubmitting: false,
           isFailure: true,

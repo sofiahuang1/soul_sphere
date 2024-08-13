@@ -1,7 +1,5 @@
 import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/router/app_paths.dart';
-import 'package:soul_sphere/presentation/feature/log_in/log_in_screen.dart';
-import 'package:soul_sphere/presentation/feature/sign_up/sign_up_screen.dart';
 import 'package:soul_sphere/presentation/screens.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -17,6 +15,13 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppPaths.loginPath,
       builder: (context, state) => const LogInScreen(),
+    ),
+    GoRoute(
+      path: '${AppPaths.userDetailPagePath}/:userId',
+      builder: (context, state) {
+        final userId = state.pathParameters['userId']!;
+        return UserDetailPage(userId: userId);
+      },
     ),
     GoRoute(
       path: AppPaths.navPaths[0],

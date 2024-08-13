@@ -16,4 +16,9 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<UserEntity> signUp(String email, String password) async {
     return await dataSource.signUp(email, password);
   }
+
+  @override
+  Future<List<UserEntity>> getRandomUsers(int count) async {
+    return await dataSource.getRandomUsers(count);
+  }
 }

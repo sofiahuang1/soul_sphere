@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:soul_sphere/app/utils/encryption_password.dart';
@@ -42,5 +44,29 @@ class FirebaseAuthDataSource {
     await firestore.collection('users').doc(uid).set(userModel.toMap());
 
     return userModel;
+  }
+
+  Future<List<UserModel>> getRandomUsers(int count) async {
+    final querySnapshot = await firestore.collection('users').get();
+
+    if (querySnapshot.docs.isEmpty) {
+      return [];
+    }
+
+    final random = Random();
+    final docs = querySnapshot.docs;
+
+    final numUsers = min(count, docs.length);
+
+    final selectedDocs = <DocumentSnapshot>[];
+    final selectedIndexes = <int>{};
+
+    while (selectedIndexes.length < numUsers) {
+      final index = random.nextInt(docs.length);
+      if (selectedIndexes.add(index)) {
+        selectedDocs.add(docs[index]);
+      }
+    }
+    return selectedDocs.map((doc) => UserModel.fromFirestore(doc)).toList();
   }
 }
