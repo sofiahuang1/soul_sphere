@@ -138,7 +138,7 @@ class _XBallViewState extends State<XBallView>
     return Scaffold(
       body: SizedBox(
         width: double.infinity,
-        height: double.infinity,
+        height: 400,
         child: Stack(
           alignment: Alignment.center,
           children: <Widget>[

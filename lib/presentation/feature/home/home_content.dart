@@ -23,11 +23,11 @@ class _HomeContentState extends State<HomeContent> {
   void initState() {
     super.initState();
     userBloc = GetIt.I<UserBloc>();
-    userBloc.add(const LoadRandomUsers(20));
+    userBloc.add(const LoadRandomUsers(33));
   }
 
   void _refreshUsers() {
-    userBloc.add(const LoadRandomUsers(20));
+    userBloc.add(const LoadRandomUsers(33));
   }
 
   @override
@@ -50,7 +50,9 @@ class _HomeContentState extends State<HomeContent> {
                       } else if (state is UserLoaded) {
                         return XBallView(
                           mediaQueryData: MediaQuery.of(context),
-                          keywords: state.users.map((user) => user.id).toList(),
+                          keywords: state.users
+                              .map((user) => user.id.substring(0, 4))
+                              .toList(),
                           highlight: const [],
                         );
                       } else if (state is UserError) {
