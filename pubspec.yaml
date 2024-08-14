@@ -16,6 +16,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_launcher_icons: ^0.13.1
   form_input: ^0.1.1
   formz: ^0.7.0
   get_it: ^7.7.0
@@ -27,6 +28,11 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
     sdk: flutter
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/image/app_icon.png"
 
 flutter:
   uses-material-design: true
