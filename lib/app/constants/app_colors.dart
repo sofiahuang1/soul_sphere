@@ -28,4 +28,8 @@ class AppColors {
   static const Color black = Colors.black;
   static const Color transparent = Colors.transparent;
   static const Color lightGrey = Colors.grey;
+
+  static const Color scaleColor = Color(0xFFE9E9E9);
+  static const Color indicatorColor = Color(0xFF3995FF);
+  static const Color scaleTextColor = Color(0xFF8E99A0);
 }
