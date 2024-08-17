@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-
-import 'horizontal_numberpicker.dart';
+import 'package:soul_sphere/app/utils/utils.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/custom_picker_stack.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/wrapper_row.dart';
 
 class HorizontalNumberPickerWrapper extends StatefulWidget {
   final int initialValue;
@@ -30,24 +31,20 @@ class HorizontalNumberPickerWrapper extends StatefulWidget {
     this.subGridCountPerGrid = 10,
     this.subGridWidth = 8,
     required this.onSelectedChanged,
-    this.titleTransformer = _defaultTitleTransformer,
-    this.scaleTransformer = _defaultScaleTransformer,
+    this.titleTransformer = Utils.defaultTitleTransformer,
+    this.scaleTransformer = Utils.defaultScaleTransformer,
     this.titleTextColor = const Color(0xFF3995FF),
     this.scaleColor = const Color(0xFFE9E9E9),
     this.indicatorColor = const Color(0xFF3995FF),
     this.scaleTextColor = const Color(0xFF8E99A0),
   });
 
-  static String _defaultTitleTransformer(int value) => value.toString();
-  static String _defaultScaleTransformer(int value) => value.toString();
-
   @override
-  // ignore: library_private_types_in_public_api
-  _HorizontalNumberPickerWrapperState createState() =>
-      _HorizontalNumberPickerWrapperState();
+  HorizontalNumberPickerWrapperState createState() =>
+      HorizontalNumberPickerWrapperState();
 }
 
-class _HorizontalNumberPickerWrapperState
+class HorizontalNumberPickerWrapperState
     extends State<HorizontalNumberPickerWrapper> {
   int _selectedValue = 500;
 
@@ -75,81 +72,27 @@ class _HorizontalNumberPickerWrapperState
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.baseline,
-          textBaseline: TextBaseline.alphabetic,
-          children: <Widget>[
-            Text(
-              widget.titleTransformer(_selectedValue),
-              style: TextStyle(
-                color: widget.titleTextColor,
-                fontSize: 40,
-              ),
-            ),
-            Text(
-              ' ${widget.unit}',
-              style: TextStyle(
-                color: widget.titleTextColor,
-                fontSize: 14,
-              ),
-            ),
-          ],
-        ),
+        WrapperRow(widget: widget, selectedValue: _selectedValue),
         const SizedBox(height: 10),
-        Stack(
-          children: <Widget>[
-            HorizontalNumberPicker(
-              initialValue: widget.initialValue,
-              minValue: widget.minValue,
-              maxValue: widget.maxValue,
-              step: widget.step,
-              widgetWidth: widget.widgetWidth,
-              widgetHeight: numberPickerHeight,
-              subGridCountPerGrid: widget.subGridCountPerGrid,
-              subGridWidth: widget.subGridWidth,
-              onSelectedChanged: (value) {
-                widget.onSelectedChanged(value);
-                setState(() {
-                  _selectedValue = value;
-                });
-              },
-              scaleTransformer: widget.scaleTransformer,
-              scaleColor: widget.scaleColor,
-              indicatorColor: widget.indicatorColor,
-              scaleTextColor: widget.scaleTextColor,
-            ),
-            Positioned(
-              left: 0,
-              child: Container(
-                width: 20,
-                height: numberPickerHeight,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white.withOpacity(0.8),
-                      Colors.white.withOpacity(0),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              right: 0,
-              child: Container(
-                width: 20,
-                height: numberPickerHeight,
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Colors.white.withOpacity(0),
-                      Colors.white.withOpacity(0.8),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+        CustomPickerStack(
+          initialValue: widget.initialValue,
+          minValue: widget.minValue,
+          maxValue: widget.maxValue,
+          step: widget.step,
+          widgetWidth: widget.widgetWidth,
+          widgetHeight: numberPickerHeight,
+          subGridCountPerGrid: widget.subGridCountPerGrid,
+          subGridWidth: widget.subGridWidth,
+          onSelectedChanged: (value) {
+            widget.onSelectedChanged(value);
+            setState(() {
+              _selectedValue = value;
+            });
+          },
+          scaleTransformer: widget.scaleTransformer,
+          scaleColor: widget.scaleColor,
+          indicatorColor: widget.indicatorColor,
+          scaleTextColor: widget.scaleTextColor,
         ),
       ],
     );

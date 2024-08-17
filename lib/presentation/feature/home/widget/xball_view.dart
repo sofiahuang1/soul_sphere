@@ -3,7 +3,9 @@ import 'dart:math';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
+import 'package:soul_sphere/app/router/app_paths.dart';
 
 PointAnimationSequence? pointAnimationSequence;
 int radius = 150;
@@ -12,12 +14,14 @@ class XBallView extends StatefulWidget {
   final MediaQueryData mediaQueryData;
   final List<String> keywords;
   final List<String> highlight;
+  final String userId;
 
   const XBallView({
     super.key,
     required this.mediaQueryData,
     required this.keywords,
     required this.highlight,
+    required this.userId,
   });
 
   @override
@@ -223,7 +227,9 @@ class _XBallViewState extends State<XBallView>
                     points[i], _needHight(points[i].name));
 
                 Future.delayed(const Duration(milliseconds: 500), () {
-                  debugPrint("click${points[i].name}”");
+                  context.push(
+                    '${AppPaths.userDetailPagePath}/${widget.userId}',
+                  );
                 });
               }
               break;

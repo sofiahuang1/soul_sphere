@@ -18,6 +18,7 @@ class HomeContent extends StatefulWidget {
 
 class _HomeContentState extends State<HomeContent> {
   late final UserBloc userBloc;
+  String? selectedUserId;
 
   @override
   void initState() {
@@ -48,12 +49,14 @@ class _HomeContentState extends State<HomeContent> {
                       } else if (state is UserLoading) {
                         return const Center(child: CircularProgressIndicator());
                       } else if (state is UserLoaded) {
+                        selectedUserId ??= state.users.first.id;
                         return XBallView(
                           mediaQueryData: MediaQuery.of(context),
                           keywords: state.users
                               .map((user) => user.id.substring(0, 4))
                               .toList(),
                           highlight: const [],
+                          userId: selectedUserId!,
                         );
                       } else if (state is UserError) {
                         return Center(child: Text(state.message));
