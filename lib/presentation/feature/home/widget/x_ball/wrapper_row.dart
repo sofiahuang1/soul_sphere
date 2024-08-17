@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soul_sphere/presentation/feature/home/widget/horizontal_numberpicker_wrapper.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/x_ball/horizontal_numberpicker_wrapper.dart';
 
 class WrapperRow extends StatelessWidget {
   const WrapperRow({

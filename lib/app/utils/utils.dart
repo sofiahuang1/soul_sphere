@@ -1,3 +1,8 @@
+import 'dart:math';
+import 'dart:ui';
+
+import 'package:soul_sphere/domain/model/point.dart';
+
 class Utils {
   static String defaultTitleTransformer(int value) => value.toString();
   static String defaultScaleTransformer(int value) => value.toString();
@@ -38,5 +43,38 @@ class Utils {
     int step,
   ) {
     return (maxValue - minValue) ~/ step + 1;
+  }
+
+  static int radius = 150;
+
+  static double getRadian(double distance) {
+    return distance / radius;
+  }
+
+  static Offset convertCoordinate(Offset offset) {
+    return Offset(offset.dx - radius, radius - offset.dy);
+  }
+
+  static Offset getVelocity() {
+    return Offset.zero;
+  }
+
+  static List<double> transformCoordinate(Point point) {
+    return [radius + point.x, radius - point.y, point.z];
+  }
+
+  static double getFontSize(double z) {
+    return 8 + 8 * (z + radius) / (2 * radius);
+  }
+
+  static double getFontOpacity(double z) {
+    return 0.5 + 0.5 * (z + radius) / (2 * radius);
+  }
+
+  static Point getAxisVector(Offset scrollVector) {
+    double x = -scrollVector.dy;
+    double y = scrollVector.dx;
+    double module = sqrt(x * x + y * y);
+    return Point(x / module, y / module, 0);
   }
 }

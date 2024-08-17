@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/app/utils/utils.dart';
-import 'package:soul_sphere/presentation/feature/home/widget/horizontal_number_picker_state.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/x_ball/horizontal_number_picker_state.dart';
 
 class HorizontalNumberPicker extends StatefulWidget {
   final int initialValue;

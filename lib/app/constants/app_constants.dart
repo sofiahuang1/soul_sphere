@@ -30,4 +30,17 @@ class AppConstants {
     Icons.chat_bubble_rounded,
     Icons.person,
   ];
+
+  static List<double> centers = [
+    0.5,
+    0.35,
+    0.65,
+    0.35,
+    0.2,
+    0.5,
+    0.65,
+    0.35,
+    0.65,
+    0.8,
+  ];
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soul_sphere/presentation/feature/home/widget/number_picker_item.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/x_ball/number_picker_item.dart';
 
 class NumberPickerItemPainter extends CustomPainter {
   final int subGridCount;

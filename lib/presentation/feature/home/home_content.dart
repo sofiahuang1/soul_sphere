@@ -5,7 +5,7 @@ import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/presentation/feature/home/user_bloc/user_bloc.dart';
 import 'package:soul_sphere/presentation/feature/home/user_bloc/user_event.dart';
 import 'package:soul_sphere/presentation/feature/home/user_bloc/user_state.dart';
-import 'package:soul_sphere/presentation/feature/home/widget/xball_view.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/x_ball/xball_view.dart';
 import 'package:soul_sphere/presentation/widgets/custom_app_bar.dart';
 
 class HomeContent extends StatefulWidget {

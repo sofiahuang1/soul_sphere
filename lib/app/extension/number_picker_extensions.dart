@@ -1,5 +1,5 @@
 import 'package:soul_sphere/app/utils/utils.dart';
-import 'package:soul_sphere/presentation/feature/home/widget/number_picker_item.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/x_ball/number_picker_item.dart';
 
 extension NumberPickerItemTypeExtension on int {
   NumberPickerItemType getType({

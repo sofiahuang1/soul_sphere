@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:soul_sphere/app/utils/utils.dart';
-import 'package:soul_sphere/presentation/feature/home/widget/custom_picker_stack.dart';
-import 'package:soul_sphere/presentation/feature/home/widget/wrapper_row.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/x_ball/custom_picker_stack.dart';
+import 'package:soul_sphere/presentation/feature/home/widget/x_ball/wrapper_row.dart';
 
 class HorizontalNumberPickerWrapper extends StatefulWidget {
   final int initialValue;
