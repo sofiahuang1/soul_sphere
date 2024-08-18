@@ -24,6 +24,22 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: AppPaths.oneOneChatPath,
+      builder: (context, state) => const OneOneChat(),
+    ),
+    GoRoute(
+      path: AppPaths.interestGroupPath,
+      builder: (context, state) => const InterestGroupScreen(),
+    ),
+    GoRoute(
+      path: AppPaths.oneOneVoicePath,
+      builder: (context, state) => const OneOneVoice(),
+    ),
+    GoRoute(
+      path: AppPaths.themedRoomPath,
+      builder: (context, state) => const ThemedRoomScreen(),
+    ),
+    GoRoute(
       path: AppPaths.navPaths[0],
       builder: (context, state) => const HomeScreen(),
       routes: [

@@ -19,14 +19,12 @@ class XBallView extends StatefulWidget {
   final MediaQueryData mediaQueryData;
   final List<String> keywords;
   final List<String> highlight;
-  final String userId;
 
   const XBallView({
     super.key,
     required this.mediaQueryData,
     required this.keywords,
     required this.highlight,
-    required this.userId,
   });
 
   @override
@@ -188,7 +186,7 @@ class _XBallViewState extends State<XBallView>
 
                 Future.delayed(const Duration(milliseconds: 500), () {
                   context.push(
-                    '${AppPaths.userDetailPagePath}/${widget.userId}',
+                    '${AppPaths.userDetailPagePath}/${points[i].name}',
                   );
                 });
               }
