@@ -26,7 +26,7 @@ class SkipButton extends StatelessWidget {
             ),
           ),
         ),
-        onPressed: () => context.go(AppPaths.authPath),
+        onPressed: () => context.go(AppPaths.signupPath),
         child: const Padding(
           padding: EdgeInsets.only(left: 8, right: 8),
           child: Text(
