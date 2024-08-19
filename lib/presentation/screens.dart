@@ -1,7 +1,10 @@
 export 'package:soul_sphere/presentation/feature/chat/chat_screen.dart';
 export 'package:soul_sphere/presentation/feature/home/home_content.dart';
 export 'package:soul_sphere/presentation/feature/home/home_screen.dart';
+export 'package:soul_sphere/presentation/feature/log_in/log_in_screen.dart';
 export 'package:soul_sphere/presentation/feature/moment/moment_screen.dart';
 export 'package:soul_sphere/presentation/feature/post/post_screen.dart';
 export 'package:soul_sphere/presentation/feature/profile/profile_screen.dart';
+export 'package:soul_sphere/presentation/feature/sign_up/sign_up_screen.dart';
 export 'package:soul_sphere/presentation/feature/splash/splash_screen.dart';
+export 'package:soul_sphere/presentation/feature/user_detail_page/user_detail_page.dart';
