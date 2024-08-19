@@ -21,7 +21,8 @@ class StartButton extends StatelessWidget {
       child: FilledButton(
         onPressed: () => context.go(AppPaths.signupPath),
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all<Color>(AppColors.purple),
+          backgroundColor:
+              WidgetStateProperty.all<Color>(AppColors.brightPurple),
         ),
         child: const Text(
           AppConstants.start,

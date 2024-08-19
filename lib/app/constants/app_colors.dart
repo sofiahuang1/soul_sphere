@@ -13,13 +13,10 @@ class AppColors {
     transform: GradientRotation(pi / 5),
   );
 
-
-  
-
   static const LinearGradient secondaryGradient = LinearGradient(
     colors: [
-      Color.fromARGB(255, 248, 70, 245),
-      Color.fromARGB(255, 21, 183, 247),
+      Color.fromARGB(255, 240, 157, 230),
+      Color.fromARGB(255, 65, 111, 235),
     ],
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
@@ -41,5 +38,4 @@ class AppColors {
   static const Color brightGreen = Color.fromARGB(255, 191, 250, 212);
   static const Color brightBlue = Color.fromARGB(255, 180, 240, 250);
   static const Color brightLila = Color.fromARGB(255, 199, 195, 248);
-
 }

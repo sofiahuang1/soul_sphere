@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:soul_sphere/app/utils/validator.dart';
+import 'package:soul_sphere/data/datasource/local_data_source/local_datasource.dart';
 import 'package:soul_sphere/domain/usecase/sign_up_usecase.dart';
 
 import 'signup_event.dart';
@@ -7,6 +9,7 @@ import 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   final SignUpUseCase signUpUseCase;
+  final LocalDataSource localDataSource = GetIt.instance<LocalDataSource>();
 
   SignupBloc({required this.signUpUseCase}) : super(const SignupState()) {
     on<EmailChanged>((event, emit) {
@@ -48,6 +51,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
       try {
         final user = await signUpUseCase(event.email, event.password);
+        await localDataSource.setIsFirst(false);
+        await localDataSource.setUserId(user.id);
         emit(state.copyWith(isSubmitting: false, isSuccess: true, user: user));
       } catch (e) {
         emit(state.copyWith(

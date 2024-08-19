@@ -1,11 +1,14 @@
 import 'package:bloc/bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:soul_sphere/app/utils/validator.dart';
+import 'package:soul_sphere/data/datasource/local_data_source/local_datasource.dart';
 import 'package:soul_sphere/domain/usecase/login_usecase.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_event.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final LoginUseCase loginUseCase;
+  final LocalDataSource localDataSource = GetIt.instance<LocalDataSource>();
 
   LoginBloc({required this.loginUseCase}) : super(const LoginState()) {
     on<EmailChanged>((event, emit) {
@@ -47,6 +50,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       try {
         final user = await loginUseCase(event.email, event.password);
+        await localDataSource.setIsFirst(false);
+        await localDataSource.setUserId(user.id);
         emit(state.copyWith(isSubmitting: false, isSuccess: true, user: user));
       } catch (e) {
         emit(state.copyWith(

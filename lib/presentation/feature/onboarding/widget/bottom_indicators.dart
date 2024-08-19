@@ -22,7 +22,9 @@ class BottomIndicators extends StatelessWidget {
           height: 10,
           decoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: currentPage == index ? AppColors.purple : Colors.grey[300],
+            color: currentPage == index
+                ? AppColors.brightPurple
+                : Colors.grey[300],
           ),
         ),
       ),
