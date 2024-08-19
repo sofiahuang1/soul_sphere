@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:soul_sphere/presentation/feature/home/widget/float_builder.dart';
 import 'package:soul_sphere/presentation/feature/home/widget/nav_items.dart';
 import 'package:soul_sphere/presentation/feature/home/widget/navigator_builder.dart';
-import 'package:soul_sphere/presentation/widgets/custom_app_bar.dart';
 import 'package:soul_sphere/presentation/widgets/nav_bar.dart';
 import 'package:soul_sphere/presentation/widgets/nav_model.dart';
 
@@ -52,7 +51,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      extendBody: true,
       body: IndexedStack(
         index: selectedTab,
         children: items.map((page) => buildNavigator(page)).toList(),

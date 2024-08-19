@@ -14,8 +14,35 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const IntroductionScreen(),
     ),
     GoRoute(
-      path: AppPaths.authPath,
-      builder: (context, state) => const Auth(),
+      path: AppPaths.signupPath,
+      builder: (context, state) => const SignUpScreen(),
+    ),
+    GoRoute(
+      path: AppPaths.loginPath,
+      builder: (context, state) => const LogInScreen(),
+    ),
+    GoRoute(
+      path: '${AppPaths.userDetailPagePath}/:userId',
+      builder: (context, state) {
+        final userId = state.pathParameters['userId']!;
+        return UserDetailPage(userId: userId);
+      },
+    ),
+    GoRoute(
+      path: AppPaths.oneOneChatPath,
+      builder: (context, state) => const OneOneChat(),
+    ),
+    GoRoute(
+      path: AppPaths.interestGroupPath,
+      builder: (context, state) => const InterestGroupScreen(),
+    ),
+    GoRoute(
+      path: AppPaths.oneOneVoicePath,
+      builder: (context, state) => const OneOneVoice(),
+    ),
+    GoRoute(
+      path: AppPaths.themedRoomPath,
+      builder: (context, state) => const ThemedRoomScreen(),
     ),
     GoRoute(
       path: AppPaths.navPaths[0],

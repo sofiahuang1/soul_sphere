@@ -1,8 +1,16 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:soul_sphere/app/config/app_theme.dart';
+import 'package:soul_sphere/app/di/service_locator.dart';
 import 'package:soul_sphere/app/router/app_routers.dart';
+import 'package:soul_sphere/firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  setupServiceLocator();
   runApp(const MainApp());
 }
 
