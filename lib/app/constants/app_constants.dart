@@ -5,9 +5,13 @@ import 'package:soul_sphere/app/router/app_paths.dart';
 import 'package:soul_sphere/domain/model/card_item.dart';
 import 'package:soul_sphere/presentation/screens.dart';
 
+import '../../domain/model/slide_info.dart';
+
 class AppConstants {
   static const String appName = "Soul Sphere";
   static const String authorName = "Created by Sophia";
+  static const String skip = "Skip";
+  static const String start = "Start";
   static const String username = "Username";
   static const String email = "Email";
   static const String password = "Password";
@@ -24,6 +28,21 @@ class AppConstants {
       'Living, learning, and sharing. Let\'s inspire each other!';
 
   static const String explore = "Scroll and Explore";
+
+  static final slides = <SlideInfo>[
+    SlideInfo(
+        'Uncover Real Connections',
+        'Engage in conversations without the pressure of appearances. Our platform encourages authentic interactions based on who you are, not what you look like.',
+        'assets/image/float_astro_planet.png'),
+    SlideInfo(
+        'Dynamic Chat Rooms',
+        'Join chat rooms tailored to your interests. From tech discussions to hobby groups, find your niche and meet like-minded individuals.',
+        'assets/image/laptop_astro.png'),
+    SlideInfo(
+        'Interactive Forums',
+        'Post, comment, and debate in interactive forums. Share your thoughts, ask questions, and get involved in community-driven discussions.',
+        'assets/image/posture_astro.png'),
+  ];
 
   static final List<Widget> navScreens = [
     const HomeContent(),

@@ -12,6 +12,10 @@ class AppColors {
     end: Alignment.bottomRight,
     transform: GradientRotation(pi / 5),
   );
+
+
+  
+
   static const LinearGradient secondaryGradient = LinearGradient(
     colors: [
       Color.fromARGB(255, 248, 70, 245),
@@ -21,7 +25,7 @@ class AppColors {
     end: Alignment.bottomRight,
     transform: GradientRotation(pi / 5),
   );
-
+  static final Color grey = Colors.grey[700]!;
   static const Color purple = Color.fromARGB(255, 172, 118, 219);
   static const Color white = Colors.white;
   static Color opacityWhite = Colors.white.withOpacity(0.7);
@@ -37,4 +41,5 @@ class AppColors {
   static const Color brightGreen = Color.fromARGB(255, 191, 250, 212);
   static const Color brightBlue = Color.fromARGB(255, 180, 240, 250);
   static const Color brightLila = Color.fromARGB(255, 199, 195, 248);
+
 }
