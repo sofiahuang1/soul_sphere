@@ -3,7 +3,7 @@ import 'package:soul_sphere/presentation/screens.dart';
 
 class AppConstants {
   static const String appName = "Soul Sphere";
-
+  static const String authorName = "Created by Sophia";
   static final List<Widget> navScreens = [
     const HomeContent(),
     const MomentScreen(),
