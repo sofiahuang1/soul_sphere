@@ -32,4 +32,9 @@ class AppColors {
   static const Color scaleColor = Color(0xFFE9E9E9);
   static const Color indicatorColor = Color(0xFF3995FF);
   static const Color scaleTextColor = Color(0xFF8E99A0);
+
+  static const Color brightPurple = Color.fromARGB(255, 201, 169, 221);
+  static const Color brightGreen = Color.fromARGB(255, 191, 250, 212);
+  static const Color brightBlue = Color.fromARGB(255, 180, 240, 250);
+  static const Color brightLila = Color.fromARGB(255, 199, 195, 248);
 }
