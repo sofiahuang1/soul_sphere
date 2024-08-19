@@ -22,8 +22,20 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<SignupSubmitted>((event, emit) async {
       emit(state.copyWith(isSubmitting: true));
 
-      final emailError = Validators.validateEmail(event.email);
-      final passwordError = Validators.validatePassword(event.password);
+      String? emailError;
+      String? passwordError;
+
+      if (event.email.isEmpty) {
+        emailError = 'Email cannot be empty';
+      } else {
+        emailError = Validators.validateEmail(event.email);
+      }
+
+      if (event.password.isEmpty) {
+        passwordError = 'Password cannot be empty';
+      } else {
+        passwordError = Validators.validatePassword(event.password);
+      }
 
       if (emailError != null || passwordError != null) {
         emit(state.copyWith(
