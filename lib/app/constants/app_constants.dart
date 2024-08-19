@@ -20,7 +20,10 @@ class AppConstants {
   static const String logIn = "Log in";
   static const String logInSuccessful = "Log in successful!";
   static const String logInFailed = "Log in failed!  Verify all fields";
-  static const String explore = "Explore";
+  static const String defaultBio =
+      'Living, learning, and sharing. Let\'s inspire each other!';
+
+  static const String explore = "Scroll and Explore";
 
   static final List<Widget> navScreens = [
     const HomeContent(),
