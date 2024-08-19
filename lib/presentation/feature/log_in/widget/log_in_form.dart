@@ -94,7 +94,10 @@ class LogInFormState extends State<LogInForm> {
                           ? null
                           : () {
                               if (_formKey.currentState?.validate() ?? false) {
-                                context.read<LoginBloc>().add(LoginSubmitted());
+                                context.read<LoginBloc>().add(LoginSubmitted(
+                                      email: _emailController.text,
+                                      password: _passwordController.text,
+                                    ));
                               }
                             },
                       style: ElevatedButton.styleFrom(

@@ -46,6 +46,24 @@ class FirebaseAuthDataSource {
     return userModel;
   }
 
+  Future<UserModel> login(String email, String password) async {
+    final userCredential = await firebaseAuth.signInWithEmailAndPassword(
+      email: email,
+      password: password,
+    );
+
+    final uid = userCredential.user?.uid;
+    if (uid == null) {
+      throw Exception('Cannot find userId for this user');
+    }
+
+    final userModel = await getUserByEmail(email);
+    if (userModel == null) {
+      throw Exception('User does not exist');
+    }
+    return userModel;
+  }
+
   Future<List<UserModel>> getRandomUsers(int count) async {
     final querySnapshot = await firestore.collection('users').get();
 

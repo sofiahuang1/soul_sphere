@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:soul_sphere/data/datasource/remote_data_source/firebase_auth_datasource.dart';
 import 'package:soul_sphere/data/repository_impl/auth_repository_impl.dart';
 import 'package:soul_sphere/domain/repository/auth_repository.dart';
+import 'package:soul_sphere/domain/usecase/login_usecase.dart';
 import 'package:soul_sphere/domain/usecase/sign_up_usecase.dart';
 import 'package:soul_sphere/presentation/feature/home/user_bloc/user_bloc.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_bloc.dart';
@@ -24,7 +25,7 @@ void setupServiceLocator() {
       () => SignupBloc(signUpUseCase: SignUpUseCase(getIt<AuthRepository>())));
 
   getIt.registerFactory<LoginBloc>(
-    () => LoginBloc(authenticationRepository: getIt<AuthRepository>()),
+    () => LoginBloc(loginUseCase: LoginUseCase(getIt<AuthRepository>())),
   );
 
   getIt.registerFactory<UserBloc>(
