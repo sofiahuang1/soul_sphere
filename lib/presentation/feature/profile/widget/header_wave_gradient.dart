@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
 
-class HeaderCurveGradient extends StatelessWidget {
-  const HeaderCurveGradient({super.key});
+class HeaderWaveGradient extends StatelessWidget {
+  const HeaderWaveGradient({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -10,13 +10,13 @@ class HeaderCurveGradient extends StatelessWidget {
       height: 300.0,
       width: double.infinity,
       child: CustomPaint(
-        painter: _HeaderDiagonalPainter(),
+        painter: _HeaderWavePainter(),
       ),
     );
   }
 }
 
-class _HeaderDiagonalPainter extends CustomPainter {
+class _HeaderWavePainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
@@ -25,9 +25,11 @@ class _HeaderDiagonalPainter extends CustomPainter {
       ..style = PaintingStyle.fill;
 
     final path = Path()
-      ..lineTo(0, size.height * 0.6)
-      ..quadraticBezierTo(
-          size.width * 0.5, size.height * 1.1, size.width, size.height * 0.6)
+      ..lineTo(0, size.height * 0.7)
+      ..cubicTo(size.width * 0.25, size.height * 0.5, size.width * 0.3,
+          size.height * 0.9, size.width * 0.5, size.height * 0.7)
+      ..cubicTo(size.width * 0.7, size.height * 0.45, size.width * 0.8,
+          size.height * 0.95, size.width, size.height * 0.65)
       ..lineTo(size.width, 0)
       ..close();
 
