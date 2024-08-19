@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soul_sphere/presentation/widgets/custom_app_bar.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -6,6 +7,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
+      appBar: CustomAppBar(),
       body: Center(
         child: Text('Chat'),
       ),
