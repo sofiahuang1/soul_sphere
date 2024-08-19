@@ -19,7 +19,7 @@ class StartButton extends StatelessWidget {
     return FadeTransition(
       opacity: _animationController,
       child: FilledButton(
-        onPressed: () => context.go(AppPaths.authPath),
+        onPressed: () => context.go(AppPaths.signupPath),
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all<Color>(AppColors.purple),
         ),
