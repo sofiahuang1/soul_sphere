@@ -2,7 +2,8 @@ import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
-import 'package:soul_sphere/app/utils/encryption_password.dart';
+import 'package:soul_sphere/app/constants/app_assets.dart';
+import 'package:soul_sphere/app/constants/app_constants.dart';
 import 'package:soul_sphere/data/model/user_model.dart';
 
 class FirebaseAuthDataSource {
@@ -26,24 +27,34 @@ class FirebaseAuthDataSource {
   }
 
   Future<UserModel> signUp(String email, String password) async {
-    final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
-    );
+    try {
+      final userCredential = await firebaseAuth.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-    final uid = userCredential.user?.uid;
-    if (uid == null) {
-      throw Exception('Cannot find uid for this user');
+      final uid = userCredential.user?.uid;
+      if (uid == null) {
+        throw Exception('Cannot find uid for this user');
+      }
+
+      final userModel = UserModel(
+        id: uid,
+        email: email,
+        avatar: AppAssets.defaultAvatar,
+        bio: AppConstants.defaultBio,
+        createdAt: DateTime.now(),
+        followersCount: 0,
+        followingCount: 0,
+        postCount: 0,
+      );
+
+      await firestore.collection('users').doc(uid).set(userModel.toMap());
+
+      return userModel;
+    } catch (e) {
+      throw Exception('Error signing up: $e');
     }
-
-    final hashedPassword = EncryptionPassword.hashPassword(password);
-
-    final userModel =
-        UserModel(id: uid, email: email, password: hashedPassword);
-
-    await firestore.collection('users').doc(uid).set(userModel.toMap());
-
-    return userModel;
   }
 
   Future<UserModel> login(String email, String password) async {
