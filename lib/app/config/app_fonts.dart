@@ -13,4 +13,15 @@ class AppFonts {
     color: AppColors.white,
     fontSize: 16,
   );
+
+  static const TextStyle mediumText = TextStyle(
+    fontWeight: FontWeight.w600,
+    color: AppColors.black,
+    fontSize: 18,
+  );
+  static const TextStyle smallText = TextStyle(
+    fontWeight: FontWeight.w400,
+    color: AppColors.black,
+    fontSize: 15,
+  );
 }
