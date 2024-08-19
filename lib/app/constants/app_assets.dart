@@ -10,4 +10,6 @@ class AppAssets {
   static const String interestGroups = "assets/image/float_astro_planet.png";
   static const String oneOneVoice = "assets/image/float_astro_star.png";
   static const String themedRooms = "assets/image/laptop_astro.png";
+
+  static const String emptyJson = "assets/lottie/empty.json";
 }

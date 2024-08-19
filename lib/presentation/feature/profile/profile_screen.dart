@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lottie/lottie.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soul_sphere/app/config/app_fonts.dart';
+import 'package:soul_sphere/app/constants/app_assets.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/app/di/service_locator.dart';
 import 'package:soul_sphere/presentation/feature/profile/bloc/profile_bloc.dart';
@@ -140,8 +142,20 @@ class ProfileScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Expanded(
-              child: Container(),
+            const SizedBox(
+              height: 240,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  child: LottieBuilder.asset(
+                    AppAssets.emptyJson,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                const Text('No Post Yet....'),
+              ],
             ),
           ],
         ),
