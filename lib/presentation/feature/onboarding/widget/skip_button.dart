@@ -17,7 +17,8 @@ class SkipButton extends StatelessWidget {
       top: 70,
       child: TextButton(
         style: ButtonStyle(
-          backgroundColor: WidgetStateProperty.all<Color>(AppColors.purple),
+          backgroundColor:
+              WidgetStateProperty.all<Color>(AppColors.brightPurple),
           padding: WidgetStateProperty.all<EdgeInsets>(
               const EdgeInsets.symmetric(horizontal: 16, vertical: 8)),
           shape: WidgetStateProperty.all<RoundedRectangleBorder>(

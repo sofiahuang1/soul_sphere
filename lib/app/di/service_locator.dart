@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:soul_sphere/data/datasource/local_data_source/local_datasource.dart';
 import 'package:soul_sphere/data/datasource/remote_data_source/firebase_auth_datasource.dart';
 import 'package:soul_sphere/data/repository_impl/auth_repository_impl.dart';
 import 'package:soul_sphere/domain/repository/auth_repository.dart';
@@ -12,7 +14,7 @@ import 'package:soul_sphere/presentation/feature/sign_up/bloc/signup_bloc.dart';
 
 final GetIt getIt = GetIt.instance;
 
-void setupServiceLocator() {
+Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton(() => FirebaseAuthDataSource(
         FirebaseAuth.instance,
         FirebaseFirestore.instance,
@@ -31,4 +33,9 @@ void setupServiceLocator() {
   getIt.registerFactory<UserBloc>(
     () => UserBloc(getIt<AuthRepository>()),
   );
+
+  final sharedPreferences = await SharedPreferences.getInstance();
+  getIt.registerSingleton<SharedPreferences>(sharedPreferences);
+
+  getIt.registerFactory<LocalDataSource>(() => LocalDataSource());
 }
