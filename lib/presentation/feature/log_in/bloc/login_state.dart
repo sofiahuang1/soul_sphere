@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:soul_sphere/domain/entities/user_entity.dart';
 
 class LoginState extends Equatable {
   final String? emailError;
@@ -6,6 +7,8 @@ class LoginState extends Equatable {
   final bool isSubmitting;
   final bool isSuccess;
   final bool isFailure;
+  final UserEntity? user;
+  final String? errorMessage;
 
   const LoginState({
     this.emailError,
@@ -13,11 +16,20 @@ class LoginState extends Equatable {
     this.isSubmitting = false,
     this.isSuccess = false,
     this.isFailure = false,
+    this.user,
+    this.errorMessage,
   });
 
   @override
-  List<Object?> get props =>
-      [emailError, passwordError, isSubmitting, isSuccess, isFailure];
+  List<Object?> get props => [
+        emailError,
+        passwordError,
+        isSubmitting,
+        isSuccess,
+        isFailure,
+        user,
+        errorMessage
+      ];
 
   LoginState copyWith({
     String? emailError,
@@ -25,6 +37,8 @@ class LoginState extends Equatable {
     bool? isSubmitting,
     bool? isSuccess,
     bool? isFailure,
+    UserEntity? user,
+    String? errorMessage,
   }) {
     return LoginState(
       emailError: emailError,
@@ -32,6 +46,8 @@ class LoginState extends Equatable {
       isSubmitting: isSubmitting ?? this.isSubmitting,
       isSuccess: isSuccess ?? this.isSuccess,
       isFailure: isFailure ?? this.isFailure,
+      user: user ?? this.user,
+      errorMessage: errorMessage ?? this.errorMessage,
     );
   }
 }

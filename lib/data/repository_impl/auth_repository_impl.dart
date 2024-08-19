@@ -18,6 +18,11 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
+  Future<UserEntity> login(String email, String password) async {
+    return await dataSource.login(email, password);
+  }
+
+  @override
   Future<List<UserEntity>> getRandomUsers(int count) async {
     return await dataSource.getRandomUsers(count);
   }
