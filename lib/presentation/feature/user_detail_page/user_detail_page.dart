@@ -35,6 +35,9 @@ class UserDetailPage extends StatelessWidget {
                   UserHeader(
                     user: user,
                   ),
+                  const SizedBox(
+                    height: 65,
+                  ),
                   const Expanded(
                     child: Padding(
                       padding: EdgeInsets.all(46.0),
