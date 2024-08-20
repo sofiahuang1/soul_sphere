@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/config/app_fonts.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/domain/entities/user_entity.dart';
+import 'package:soul_sphere/presentation/feature/user_detail_page/widget/custom_app_bar_for_user_details.dart';
 
 class UserHeader extends StatelessWidget {
   final UserEntity user;
@@ -23,34 +23,9 @@ class UserHeader extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10.0, 38.0, 18.0, 18.0),
-            child: Row(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                    color: AppColors.opacityWhite,
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    onPressed: () {
-                      context.pop();
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new,
-                      color: AppColors.black,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.22,
-                ),
-                const Text(
-                  'Souler',
-                  style: AppFonts.appTitle,
-                ),
-              ],
-            ),
+          const Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 38.0, 18.0, 18.0),
+            child: CustomAppBarForUserDetails(),
           ),
           const SizedBox(height: 16),
           Row(
