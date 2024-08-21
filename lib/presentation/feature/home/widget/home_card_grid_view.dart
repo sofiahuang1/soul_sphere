@@ -43,7 +43,7 @@ class HomeCardGridViewState extends State<HomeCardGridView> {
               final cardItem = AppConstants.cardItems[index];
               return GestureDetector(
                 onTap: () {
-                  context.go(cardItem.route);
+                  context.push(cardItem.route);
                 },
                 child: Card(
                   color: cardItem.color,
