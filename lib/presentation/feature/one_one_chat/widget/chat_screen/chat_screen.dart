@@ -7,8 +7,8 @@ import 'package:soul_sphere/domain/entities/user_entity.dart';
 import 'package:soul_sphere/presentation/feature/one_one_chat/bloc/chat_bloc/chat_bloc.dart';
 import 'package:soul_sphere/presentation/feature/one_one_chat/bloc/chat_bloc/chat_event.dart';
 import 'package:soul_sphere/presentation/feature/one_one_chat/bloc/chat_bloc/chat_state.dart';
-import 'package:soul_sphere/presentation/feature/one_one_chat/widget/chat_bubble.dart';
-import 'package:soul_sphere/presentation/feature/one_one_chat/widget/chat_input_field.dart'; // Import the ChatBubble widget
+import 'package:soul_sphere/presentation/feature/one_one_chat/widget/chat_screen/chat_bubble.dart';
+import 'package:soul_sphere/presentation/feature/one_one_chat/widget/chat_screen/chat_input_field.dart'; // Import the ChatBubble widget
 
 class ChatScreen extends StatelessWidget {
   final String currentUserId;

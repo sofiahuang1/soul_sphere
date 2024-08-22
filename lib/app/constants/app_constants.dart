@@ -47,7 +47,7 @@ class AppConstants {
   static final List<Widget> navScreens = [
     const HomeContent(),
     const MomentScreen(),
-    const ChatScreen(),
+    const AllChatScreen(),
     const ProfileScreen(),
   ];
 

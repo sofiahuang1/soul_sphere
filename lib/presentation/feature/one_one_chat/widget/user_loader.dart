@@ -7,7 +7,7 @@ import 'package:soul_sphere/presentation/feature/one_one_chat/bloc/current_user/
 import 'package:soul_sphere/presentation/feature/one_one_chat/bloc/random_user_bloc.dart';
 import 'package:soul_sphere/presentation/feature/one_one_chat/bloc/random_user_event.dart';
 import 'package:soul_sphere/presentation/feature/one_one_chat/bloc/random_user_state.dart';
-import 'package:soul_sphere/presentation/feature/one_one_chat/widget/chat_screen.dart';
+import 'package:soul_sphere/presentation/feature/one_one_chat/widget/chat_screen/chat_screen.dart';
 
 class UserLoader extends StatelessWidget {
   const UserLoader({super.key});
