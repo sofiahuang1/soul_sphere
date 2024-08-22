@@ -33,15 +33,6 @@ class ChatInputFieldState extends State<ChatInputField> {
     });
   }
 
-  void _onEmojiSelected(Emoji emoji) {
-    setState(() {
-      _controller.text += emoji.emoji;
-      _controller.selection = TextSelection.fromPosition(
-        TextPosition(offset: _controller.text.length),
-      );
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -90,7 +81,9 @@ class ChatInputFieldState extends State<ChatInputField> {
                   ),
                 ],
               ),
-              const SizedBox(height: 280),
+              SizedBox(
+                height: _isEmojiPickerVisible ? 280.0 : 45.0,
+              ),
             ],
           ),
         ),
@@ -100,9 +93,6 @@ class ChatInputFieldState extends State<ChatInputField> {
             left: 0,
             right: 0,
             child: EmojiPicker(
-              onEmojiSelected: (category, emoji) {
-                _onEmojiSelected(emoji);
-              },
               textEditingController: _controller,
               config: Config(
                 height: 250,
