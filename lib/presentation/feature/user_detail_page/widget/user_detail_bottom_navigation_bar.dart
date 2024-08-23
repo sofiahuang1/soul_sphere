@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
+import 'package:soul_sphere/app/router/app_paths.dart';
+import 'package:soul_sphere/domain/entities/user_entity.dart';
 import 'package:soul_sphere/presentation/feature/user_detail_page/widget/gradient_button.dart';
 
 class UserDetailBottomNavigationBar extends StatelessWidget {
-  const UserDetailBottomNavigationBar({super.key});
+  final UserEntity user;
+  final String currentUserId;
+
+  const UserDetailBottomNavigationBar(
+      {super.key, required this.user, required this.currentUserId});
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +34,15 @@ class UserDetailBottomNavigationBar extends StatelessWidget {
               padding: const EdgeInsets.all(28.0),
               child: GradientButton(
                 text: 'Chat',
-                onPressed: () {},
+                onPressed: () {
+                  context.push(
+                    AppPaths.chatScreenPath,
+                    extra: {
+                      'currentUserId': currentUserId,
+                      'randomUser': user,
+                    },
+                  );
+                },
               ),
             ),
           ),

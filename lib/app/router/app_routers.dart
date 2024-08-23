@@ -1,6 +1,8 @@
 import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/router/app_paths.dart';
+import 'package:soul_sphere/domain/entities/user_entity.dart';
 import 'package:soul_sphere/presentation/feature/onboarding/introduction_screen.dart';
+import 'package:soul_sphere/presentation/feature/one_one_chat/widget/chat_screen/chat_screen.dart';
 import 'package:soul_sphere/presentation/screens.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -41,8 +43,17 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const OneOneVoice(),
     ),
     GoRoute(
-      path: AppPaths.themedRoomPath,
-      builder: (context, state) => const ThemedRoomScreen(),
+      path: AppPaths.chatScreenPath,
+      builder: (context, state) {
+        final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+        final String currentUserId = extra['currentUserId'] as String;
+        final UserEntity randomUser = extra['randomUser'] as UserEntity;
+
+        return ChatScreen(
+          currentUserId: currentUserId,
+          randomUser: randomUser,
+        );
+      },
     ),
     GoRoute(
       path: AppPaths.navPaths[0],
@@ -54,7 +65,7 @@ final GoRouter appRouter = GoRouter(
         ),
         GoRoute(
           path: AppPaths.navPaths[2],
-          builder: (context, state) => const ChatScreen(),
+          builder: (context, state) => const AllChatScreen(),
         ),
         GoRoute(
           path: AppPaths.navPaths[3],

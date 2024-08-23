@@ -8,7 +8,7 @@ class AppPaths {
   static const String interestGroupPath = "/interest_group_screen";
   static const String oneOneVoicePath = "/one_one_voice";
   static const String themedRoomPath = "/themed_room_screen";
-
+  static const String chatScreenPath = "/chat_screen";
 
   static const List<String> navPaths = [
     '/home',

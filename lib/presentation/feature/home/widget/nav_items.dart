@@ -17,7 +17,7 @@ List<NavModel> getNavItems(
       navKey: momentNavKey,
     ),
     NavModel(
-      page: const ChatScreen(),
+      page: const AllChatScreen(),
       navKey: chatNavKey,
     ),
     NavModel(

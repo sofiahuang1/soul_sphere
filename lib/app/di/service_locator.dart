@@ -14,6 +14,7 @@ import 'package:soul_sphere/domain/usecase/login_usecase.dart';
 import 'package:soul_sphere/domain/usecase/sign_up_usecase.dart';
 import 'package:soul_sphere/presentation/feature/home/user_bloc/user_bloc.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_bloc.dart';
+import 'package:soul_sphere/presentation/feature/one_one_chat/bloc/random_user_bloc.dart';
 import 'package:soul_sphere/presentation/feature/profile/bloc/profile_bloc.dart';
 import 'package:soul_sphere/presentation/feature/sign_up/bloc/signup_bloc.dart';
 
@@ -56,6 +57,12 @@ Future<void> setupServiceLocator() async {
       () => LoginBloc(loginUseCase: LoginUseCase(getIt<AuthRepository>())));
 
   getIt.registerFactory(() => UserBloc(getIt<AuthRepository>()));
+
+  getIt.registerFactory<RandomUserBloc>(
+    () => RandomUserBloc(
+      authRepository: getIt<AuthRepository>(),
+    ),
+  );
 
   // Register SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();

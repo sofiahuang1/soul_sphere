@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soul_sphere/presentation/feature/one_one_chat/widget/user_loader.dart';
 
 class OneOneChat extends StatelessWidget {
   const OneOneChat({super.key});
@@ -6,9 +7,7 @@ class OneOneChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Center(
-        child: Text('one one chat Screen'),
-      ),
+      body: UserLoader(),
     );
   }
 }
