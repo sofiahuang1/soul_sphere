@@ -10,6 +10,7 @@ class ChatMessage {
   final String? mediaUrl;
   final DateTime timestamp;
   final MessageType type;
+  final bool isOverview;
 
   ChatMessage({
     required this.id,
@@ -19,6 +20,7 @@ class ChatMessage {
     this.mediaUrl,
     required this.timestamp,
     required this.type,
+    this.isOverview = false,
   });
 
  factory ChatMessage.fromFirestore(Map<String, dynamic> data, String id) {
@@ -30,6 +32,7 @@ class ChatMessage {
     mediaUrl: data['mediaUrl'],
     timestamp: (data['timestamp'] as Timestamp?)?.toDate() ?? DateTime.now(), 
     type: MessageType.values[data['type'] ?? 0],
+    isOverview: data['isOverview'] ?? false,
   );
 }
 
@@ -42,6 +45,7 @@ class ChatMessage {
       'mediaUrl': mediaUrl,
       'timestamp': FieldValue.serverTimestamp(),
       'type': type.index,
+      'isOverview': isOverview,
     };
   }
 }

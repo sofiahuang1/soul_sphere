@@ -38,7 +38,9 @@ class _HomeContentState extends State<HomeContent> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(),
+      appBar: const CustomAppBar(
+        title: AppConstants.appName,
+      ),
       body: BlocProvider<UserBloc>.value(
         value: userBloc,
         child: Column(
