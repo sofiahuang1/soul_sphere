@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:soul_sphere/app/constants/app_constants.dart';
 import 'package:soul_sphere/presentation/widgets/custom_app_bar.dart';
 
 class PostScreen extends StatelessWidget {
@@ -7,7 +8,9 @@ class PostScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: CustomAppBar(),
+      appBar: CustomAppBar(
+        title: AppConstants.post,
+      ),
       body: Center(child: Text('Post')),
     );
   }

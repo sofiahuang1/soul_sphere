@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
 
+import 'package:intl/intl.dart';
 import 'package:soul_sphere/domain/model/point.dart';
 
 class Utils {
@@ -82,5 +83,20 @@ class Utils {
     return userId1.hashCode <= userId2.hashCode
         ? '${userId1}_$userId2'
         : '${userId2}_$userId1';
+  }
+
+  static String formatTimestamp(DateTime timestamp) {
+    final now = DateTime.now();
+    final difference = now.difference(timestamp);
+
+    if (difference.inDays == 0) {
+      return DateFormat.jm().format(timestamp);
+    } else if (difference.inDays == 1) {
+      return 'Yesterday';
+    } else if (difference.inDays < 7) {
+      return DateFormat.E().format(timestamp);
+    } else {
+      return DateFormat.yMMMd().format(timestamp);
+    }
   }
 }

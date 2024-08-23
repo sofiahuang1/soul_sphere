@@ -28,6 +28,9 @@ class AppConstants {
       'Living, learning, and sharing. Let\'s inspire each other!';
 
   static const String explore = "Scroll and Explore";
+  static const String post = "Post";
+  static const String moment = "Moment";
+  static const String chats = "Chats";
 
   static final slides = <SlideInfo>[
     SlideInfo(
