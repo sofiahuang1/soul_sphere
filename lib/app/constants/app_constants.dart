@@ -31,6 +31,7 @@ class AppConstants {
   static const String post = "Post";
   static const String moment = "Moment";
   static const String chats = "Chats";
+  static const String settings = "Settings";
 
   static final slides = <SlideInfo>[
     SlideInfo(

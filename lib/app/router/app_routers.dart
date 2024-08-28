@@ -45,6 +45,10 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const OneOneVoice(),
     ),
     GoRoute(
+      path: AppPaths.settingScreenPath,
+      builder: (context, state) => const SettingScreen(),
+    ),
+    GoRoute(
       path: AppPaths.chatScreenPath,
       builder: (context, state) {
         final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;

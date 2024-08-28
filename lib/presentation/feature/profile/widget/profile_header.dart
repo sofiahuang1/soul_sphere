@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:soul_sphere/app/router/app_paths.dart';
 import 'package:soul_sphere/presentation/feature/profile/bloc/profile_bloc.dart';
 import 'package:soul_sphere/presentation/feature/profile/bloc/profile_state.dart';
 import 'package:soul_sphere/presentation/feature/profile/widget/header_wave_gradient.dart';
@@ -14,6 +16,16 @@ class ProfileHeader extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         const HeaderWaveGradient(),
+        Positioned(
+          top: 40,
+          right: 10,
+          child: IconButton(
+            icon: const Icon(Icons.settings),
+            onPressed: () {
+              context.push(AppPaths.settingScreenPath);
+            },
+          ),
+        ),
         Positioned(
           top: 60,
           left: 0,

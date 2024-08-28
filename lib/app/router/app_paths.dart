@@ -10,6 +10,7 @@ class AppPaths {
   static const String themedRoomPath = "/themed_room_screen";
   static const String chatScreenPath = "/chat_screen";
   static const String postScreenPath = "/post_screen";
+  static const String settingScreenPath = "/setting_screen";
 
   static const List<String> navPaths = [
     '/home',
