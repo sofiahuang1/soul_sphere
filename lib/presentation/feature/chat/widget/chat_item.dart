@@ -22,11 +22,7 @@ class ChatItem extends StatelessWidget {
       leading: CircleAvatar(
         backgroundImage: AssetImage(user.avatar),
       ),
-      title: Text(
-        user.email.length > 20
-            ? '${user.email.substring(0, 7)}...'
-            : user.email,
-      ),
+      title: Text('${user.email.substring(0, 7)}...'),
       subtitle: Text(
         chatMessage.text,
         maxLines: 1,

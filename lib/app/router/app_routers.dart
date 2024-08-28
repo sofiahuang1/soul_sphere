@@ -1,8 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/router/app_paths.dart';
 import 'package:soul_sphere/domain/entities/user_entity.dart';
-import 'package:soul_sphere/presentation/feature/onboarding/introduction_screen.dart';
-import 'package:soul_sphere/presentation/feature/one_one_chat/widget/chat_screen/chat_screen.dart';
 import 'package:soul_sphere/presentation/screens.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -29,6 +27,10 @@ final GoRouter appRouter = GoRouter(
         final userId = state.pathParameters['userId']!;
         return UserDetailPage(userId: userId);
       },
+    ),
+    GoRoute(
+      path: AppPaths.postScreenPath,
+      builder: (context, state) => const PostScreen(),
     ),
     GoRoute(
       path: AppPaths.oneOneChatPath,

@@ -36,8 +36,7 @@ class ChatScreen extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
                 child: Text(
-              //luego cambia a id
-              randomUser.email,
+              '${randomUser.email.substring(0, 7)}...',
               style: AppFonts.smallText,
             )),
           ],
