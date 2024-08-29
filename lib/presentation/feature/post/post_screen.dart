@@ -1,128 +1,112 @@
-import 'dart:io';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/app/di/service_locator.dart';
+import 'package:soul_sphere/presentation/feature/post/bloc/post_bloc.dart';
+import 'package:soul_sphere/presentation/feature/post/bloc/post_event.dart';
+import 'package:soul_sphere/presentation/feature/post/bloc/post_state.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
 
   @override
-  State<PostScreen> createState() => _PostScreenState();
+  PostScreenState createState() => PostScreenState();
 }
 
-class _PostScreenState extends State<PostScreen> {
+class PostScreenState extends State<PostScreen> {
   final TextEditingController _textController = TextEditingController();
-  File? _image;
-  String? _mediaUrl;
-  String _mediaType = 'text';
 
-  Future<void> _pickImage() async {
-    final picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-        _mediaType = 'image';
-      });
-
-      await _uploadImage();
-    }
-  }
-
-  Future<void> _uploadImage() async {
-    if (_image == null) return;
-
-    final fileName = DateTime.now().toIso8601String();
-    final storageRef =
-        FirebaseStorage.instance.ref().child('post_images/$fileName');
-
-    try {
-      final uploadTask = storageRef.putFile(_image!);
-
-      uploadTask.snapshotEvents.listen((TaskSnapshot snapshot) {
-        if (snapshot.state == TaskState.running) {
-          double progress =
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          debugPrint('Upload is $progress% complete');
-        } else if (snapshot.state == TaskState.success) {
-          debugPrint('Upload completed successfully');
-        } else if (snapshot.state == TaskState.canceled) {
-          debugPrint('Upload was canceled');
-        }
-      });
-
-      // ignore: unused_local_variable
-      final downloadUrl = await uploadTask;
-      setState(() async {
-        _mediaUrl = await storageRef.getDownloadURL();
-      });
-    } catch (e) {
-      debugPrint("Failed to upload image: $e");
-    }
-  }
-
-  Future<void> _submitPost() async {
-    final prefs = getIt<SharedPreferences>();
-    final userId = prefs.getString('userId') ?? '';
-
-    final postId = FirebaseFirestore.instance.collection('posts').doc().id;
-
-    try {
-      await FirebaseFirestore.instance.collection('posts').doc(postId).set({
-        'userId': userId,
-        'mediaUrl': _mediaUrl,
-        'mediaType': _mediaType,
-        'text': _textController.text,
-        'createdAt': Timestamp.now(),
-        'likesCount': 0,
-        'commentsCount': 0,
-      });
-
-      Navigator.pop(context);
-    } catch (e) {
-      debugPrint("Failed to submit post: $e");
-    }
+  @override
+  void dispose() {
+    _textController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Create Post'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.check),
-            onPressed: _submitPost,
-          ),
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            if (_image != null)
-              Image.file(
-                _image!,
-                height: 150,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
-            TextField(
-              controller: _textController,
-              maxLines: null,
-              decoration:
-                  const InputDecoration(hintText: 'What’s on your mind?'),
-            ),
-            ElevatedButton(
-              onPressed: _pickImage,
-              child: const Text('Select Image'),
+    return BlocProvider<PostBloc>(
+      create: (_) => getIt<PostBloc>(),
+      child: Scaffold(
+        backgroundColor: AppColors.brightLila,
+        appBar: AppBar(
+          backgroundColor: AppColors.brightLila,
+          title: const Text('Create Post'),
+          centerTitle: true,
+          actions: [
+            BlocBuilder<PostBloc, PostState>(
+              builder: (context, state) {
+                if (state is PostLoadingState) {
+                  return const Center(child: CircularProgressIndicator());
+                }
+                return IconButton(
+                  icon: const Icon(Icons.check),
+                  onPressed: () {
+                    final image = context.read<PostBloc>().state
+                            is ImagePickedState
+                        ? (context.read<PostBloc>().state as ImagePickedState)
+                            .image
+                        : null;
+
+                    context.read<PostBloc>().add(
+                          SubmitPostEvent(
+                            text: _textController.text,
+                            image: image,
+                          ),
+                        );
+                  },
+                );
+              },
             ),
           ],
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: BlocConsumer<PostBloc, PostState>(
+            listener: (context, state) {
+              if (state is PostSuccessState) {
+                Navigator.pop(context);
+              } else if (state is PostFailureState) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                      content: Text('Failed to submit post: ${state.error}')),
+                );
+              }
+            },
+            builder: (context, state) {
+              return Column(
+                children: [
+                  if (state is ImagePickedState)
+                    Image.file(
+                      state.image,
+                      height: 200,
+                      width: double.infinity,
+                      fit: BoxFit.cover,
+                    ),
+                  TextField(
+                    controller: _textController,
+                    maxLines: null,
+                    decoration:
+                        const InputDecoration(hintText: 'What’s on your mind?'),
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      context.read<PostBloc>().add(PickImageEvent());
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.opacityWhite,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 24, vertical: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    child: const Text('Select Image'),
+                  ),
+                ],
+              );
+            },
+          ),
         ),
       ),
     );
