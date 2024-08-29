@@ -3,8 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/app/di/service_locator.dart';
 import 'package:soul_sphere/presentation/feature/post/bloc/post_bloc.dart';
-import 'package:soul_sphere/presentation/feature/post/bloc/post_event.dart';
 import 'package:soul_sphere/presentation/feature/post/bloc/post_state.dart';
+import 'package:soul_sphere/presentation/feature/post/widget/image_view.dart';
+import 'package:soul_sphere/presentation/feature/post/widget/post_app_bar.dart';
+import 'package:soul_sphere/presentation/feature/post/widget/select_image_button.dart';
+import 'package:soul_sphere/presentation/feature/post/widget/text_input.dart';
 
 class PostScreen extends StatefulWidget {
   const PostScreen({super.key});
@@ -28,37 +31,7 @@ class PostScreenState extends State<PostScreen> {
       create: (_) => getIt<PostBloc>(),
       child: Scaffold(
         backgroundColor: AppColors.brightLila,
-        appBar: AppBar(
-          backgroundColor: AppColors.brightLila,
-          title: const Text('Create Post'),
-          centerTitle: true,
-          actions: [
-            BlocBuilder<PostBloc, PostState>(
-              builder: (context, state) {
-                if (state is PostLoadingState) {
-                  return const Center(child: CircularProgressIndicator());
-                }
-                return IconButton(
-                  icon: const Icon(Icons.check),
-                  onPressed: () {
-                    final image = context.read<PostBloc>().state
-                            is ImagePickedState
-                        ? (context.read<PostBloc>().state as ImagePickedState)
-                            .image
-                        : null;
-
-                    context.read<PostBloc>().add(
-                          SubmitPostEvent(
-                            text: _textController.text,
-                            image: image,
-                          ),
-                        );
-                  },
-                );
-              },
-            ),
-          ],
-        ),
+        appBar: PostAppBar(textController: _textController),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: BlocConsumer<PostBloc, PostState>(
@@ -68,7 +41,8 @@ class PostScreenState extends State<PostScreen> {
               } else if (state is PostFailureState) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                      content: Text('Failed to submit post: ${state.error}')),
+                    content: Text('Failed to submit post: ${state.error}'),
+                  ),
                 );
               }
             },
@@ -76,33 +50,10 @@ class PostScreenState extends State<PostScreen> {
               return Column(
                 children: [
                   if (state is ImagePickedState)
-                    Image.file(
-                      state.image,
-                      height: 200,
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  TextField(
-                    controller: _textController,
-                    maxLines: null,
-                    decoration:
-                        const InputDecoration(hintText: 'What’s on your mind?'),
-                  ),
+                    ImagePreview(image: state.image),
+                  TextInput(controller: _textController),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<PostBloc>().add(PickImageEvent());
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.opacityWhite,
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 24, vertical: 12),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
-                      ),
-                    ),
-                    child: const Text('Select Image'),
-                  ),
+                  const SelectImageButton(),
                 ],
               );
             },
