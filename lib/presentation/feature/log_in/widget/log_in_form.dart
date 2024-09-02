@@ -1,12 +1,18 @@
+// login_form.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:soul_sphere/app/constants/app_assets.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/app/router/app_paths.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_bloc.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_event.dart';
 import 'package:soul_sphere/presentation/feature/log_in/bloc/login_state.dart';
+import 'package:soul_sphere/presentation/feature/log_in/widget/login_button.dart';
+import 'package:soul_sphere/presentation/feature/sign_up/widget/email_field.dart';
+import 'package:soul_sphere/presentation/feature/sign_up/widget/password_field.dart';
+import 'package:soul_sphere/presentation/feature/sign_up/widget/social_media_buttons.dart';
+
+import 'signup_redirect_row.dart';
 
 class LogInForm extends StatefulWidget {
   const LogInForm({super.key});
@@ -56,109 +62,39 @@ class LogInFormState extends State<LogInForm> {
               key: _formKey,
               child: Column(
                 children: [
-                  TextFormField(
+                  EmailField(
                     controller: _emailController,
+                    errorText: state.emailError,
                     onChanged: (email) =>
                         context.read<LoginBloc>().add(EmailChanged(email)),
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      errorText: state.emailError,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
                   ),
                   const SizedBox(height: 26.0),
-                  TextFormField(
+                  PasswordField(
                     controller: _passwordController,
+                    errorText: state.passwordError,
                     onChanged: (password) => context
                         .read<LoginBloc>()
                         .add(PasswordChanged(password)),
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      errorText: state.passwordError,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                    ),
-                    obscureText: true,
                   ),
                   const SizedBox(height: 46.0),
-                  Container(
-                    decoration: BoxDecoration(
-                      gradient: AppColors.secondaryGradient,
-                      borderRadius: BorderRadius.circular(28.0),
-                    ),
-                    child: ElevatedButton(
-                      onPressed: state.isSubmitting
-                          ? null
-                          : () {
-                              if (_formKey.currentState?.validate() ?? false) {
-                                context.read<LoginBloc>().add(LoginSubmitted(
-                                      email: _emailController.text,
-                                      password: _passwordController.text,
-                                    ));
-                              }
-                            },
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(28.0),
-                        ),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24.0, vertical: 12.0),
-                        backgroundColor: Colors.transparent,
-                        shadowColor: Colors.transparent,
-                      ),
-                      child: state.isSubmitting
-                          ? const CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                  AppColors.white),
-                            )
-                          : const Text(
-                              'Log In',
-                              style: TextStyle(color: AppColors.white),
-                            ),
-                    ),
+                  LoginButton(
+                    isSubmitting: state.isSubmitting,
+                    onPressed: () {
+                      if (_formKey.currentState?.validate() ?? false) {
+                        context.read<LoginBloc>().add(LoginSubmitted(
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ));
+                      }
+                    },
+                    buttonText: 'Log In',
+                    gradient: AppColors.secondaryGradient,
                   ),
                   const SizedBox(height: 30.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text(
-                        'New user? ',
-                        style: TextStyle(color: AppColors.lightGrey),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          context.go(AppPaths.signupPath);
-                        },
-                        child: const Text(
-                          'Sign Up',
-                          style: TextStyle(
-                            color: AppColors.black,
-                            fontWeight: FontWeight.bold,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                  const SignupRedirectRow(),
                   const SizedBox(height: 40.0),
                   const Divider(thickness: 1.0),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 22.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Image.asset(AppAssets.facebook,
-                            width: 40.0, height: 40.0),
-                        Image.asset(AppAssets.google,
-                            width: 40.0, height: 40.0),
-                        Image.asset(AppAssets.twitter,
-                            width: 40.0, height: 40.0),
-                      ],
-                    ),
-                  ),
+                  const SocialMediaButtons(),
                 ],
               ),
             ),

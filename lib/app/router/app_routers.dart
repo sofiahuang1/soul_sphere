@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/router/app_paths.dart';
+import 'package:soul_sphere/domain/entities/user_entity.dart';
 import 'package:soul_sphere/presentation/screens.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -7,6 +8,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: AppPaths.splashPath,
       builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: AppPaths.onBoardingPath,
+      builder: (context, state) => const IntroductionScreen(),
     ),
     GoRoute(
       path: AppPaths.signupPath,
@@ -24,6 +29,10 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
+      path: AppPaths.postScreenPath,
+      builder: (context, state) => const PostScreen(),
+    ),
+    GoRoute(
       path: AppPaths.oneOneChatPath,
       builder: (context, state) => const OneOneChat(),
     ),
@@ -36,8 +45,21 @@ final GoRouter appRouter = GoRouter(
       builder: (context, state) => const OneOneVoice(),
     ),
     GoRoute(
-      path: AppPaths.themedRoomPath,
-      builder: (context, state) => const ThemedRoomScreen(),
+      path: AppPaths.settingScreenPath,
+      builder: (context, state) => const SettingScreen(),
+    ),
+    GoRoute(
+      path: AppPaths.chatScreenPath,
+      builder: (context, state) {
+        final Map<String, dynamic> extra = state.extra as Map<String, dynamic>;
+        final String currentUserId = extra['currentUserId'] as String;
+        final UserEntity randomUser = extra['randomUser'] as UserEntity;
+
+        return ChatScreen(
+          currentUserId: currentUserId,
+          randomUser: randomUser,
+        );
+      },
     ),
     GoRoute(
       path: AppPaths.navPaths[0],
@@ -49,7 +71,7 @@ final GoRouter appRouter = GoRouter(
         ),
         GoRoute(
           path: AppPaths.navPaths[2],
-          builder: (context, state) => const ChatScreen(),
+          builder: (context, state) => const AllChatScreen(),
         ),
         GoRoute(
           path: AppPaths.navPaths[3],

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/config/app_fonts.dart';
 import 'package:soul_sphere/app/constants/app_assets.dart';
 import 'package:soul_sphere/app/constants/app_constants.dart';
 import 'package:soul_sphere/app/router/app_paths.dart';
+import 'package:soul_sphere/data/datasource/local_data_source/local_datasource.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -35,9 +37,20 @@ class _SplashScreenState extends State<SplashScreen>
       CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
     );
 
+    _navigateToNextScreen();
+  }
+
+  Future<void> _navigateToNextScreen() async {
+    final localDataSource = GetIt.instance<LocalDataSource>();
+    final isFirst = await localDataSource.getIsFirst();
+    final userId = await localDataSource.getUserId();
+
     Future.delayed(const Duration(milliseconds: 4000), () {
-      // context.go(AppPaths.navPaths[0]);
-      context.go(AppPaths.signupPath);
+      if (isFirst) {
+        context.go(AppPaths.onBoardingPath);
+      } else if (userId != null) {
+        context.go(AppPaths.navPaths[0]);
+      }
     });
   }
 
