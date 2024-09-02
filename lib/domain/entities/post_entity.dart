@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:soul_sphere/domain/entities/comment_entity.dart';
 
 class PostEntity extends Equatable {
   final String id;
@@ -8,7 +9,7 @@ class PostEntity extends Equatable {
   final String? imageUrl;
   final DateTime createdAt;
   final int likesCount;
-  final int commentsCount;
+  final List<CommentEntity> comments;
 
   const PostEntity({
     required this.id,
@@ -18,7 +19,7 @@ class PostEntity extends Equatable {
     this.imageUrl,
     required this.createdAt,
     this.likesCount = 0,
-    this.commentsCount = 0,
+    this.comments = const [],
   });
 
   @override
@@ -30,6 +31,6 @@ class PostEntity extends Equatable {
         imageUrl,
         createdAt,
         likesCount,
-        commentsCount,
+        comments,
       ];
 }

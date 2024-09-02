@@ -6,8 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:soul_sphere/data/datasource/local_data_source/local_datasource.dart';
 import 'package:soul_sphere/data/datasource/remote_data_source/firebase_auth_datasource.dart';
 import 'package:soul_sphere/data/repository_impl/auth_repository_impl.dart';
+import 'package:soul_sphere/data/repository_impl/post_repository_impl.dart';
 import 'package:soul_sphere/data/repository_impl/user_repository_impl.dart';
 import 'package:soul_sphere/domain/repository/auth_repository.dart';
+import 'package:soul_sphere/domain/repository/post_repository.dart';
 import 'package:soul_sphere/domain/repository/user_repository.dart';
 import 'package:soul_sphere/domain/usecase/get_user_profile_usecase.dart.dart';
 import 'package:soul_sphere/domain/usecase/login_usecase.dart';
@@ -42,6 +44,9 @@ Future<void> setupServiceLocator() async {
   getIt.registerLazySingleton<UserRepository>(
       () => UserRepositoryImpl(getIt<FirebaseFirestore>()));
 
+  getIt.registerLazySingleton<PostRepository>(
+      () => PostRepositoryImpl(getIt<FirebaseFirestore>()));
+
   // Register UseCases
   getIt.registerLazySingleton(
       () => GetUserProfileUseCase(getIt<UserRepository>()));
@@ -64,7 +69,7 @@ Future<void> setupServiceLocator() async {
       authRepository: getIt<AuthRepository>(),
     ),
   );
-  getIt.registerFactory(() => PostBloc());
+  getIt.registerFactory<PostBloc>(() => PostBloc(getIt<PostRepository>()));
 
   // Register SharedPreferences
   final sharedPreferences = await SharedPreferences.getInstance();

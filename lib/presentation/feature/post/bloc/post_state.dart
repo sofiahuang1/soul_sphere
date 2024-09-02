@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:equatable/equatable.dart';
+import 'package:soul_sphere/domain/entities/post_entity.dart';
 
 abstract class PostState extends Equatable {
   @override
@@ -29,4 +30,30 @@ class PostFailureState extends PostState {
 
   @override
   List<Object?> get props => [error];
+}
+
+class PostEditSuccessState extends PostState {}
+
+class PostDeleteSuccessState extends PostState {}
+
+class PostLikeSuccessState extends PostState {}
+
+class PostCommentSuccessState extends PostState {}
+
+class AllPostsLoadedState extends PostState {
+  final List<PostEntity> posts;
+
+  AllPostsLoadedState(this.posts);
+
+  @override
+  List<Object?> get props => [posts];
+}
+
+class UserPostsLoadedState extends PostState {
+  final List<PostEntity> posts;
+
+  UserPostsLoadedState(this.posts);
+
+  @override
+  List<Object?> get props => [posts];
 }
