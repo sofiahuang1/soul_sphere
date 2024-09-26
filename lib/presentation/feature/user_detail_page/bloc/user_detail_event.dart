@@ -13,3 +13,13 @@ class LoadUser extends UserDetailEvent {
   @override
   List<Object> get props => [userId];
 }
+
+class FollowUser extends UserDetailEvent {
+  final String currentUserId;
+  final String userId;
+
+  FollowUser(this.currentUserId, this.userId);
+
+  @override
+  List<Object> get props => [currentUserId, userId];
+}

@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:soul_sphere/app/constants/app_colors.dart';
 import 'package:soul_sphere/app/router/app_paths.dart';
 import 'package:soul_sphere/domain/entities/user_entity.dart';
+import 'package:soul_sphere/presentation/feature/profile/bloc/profile_bloc.dart';
+import 'package:soul_sphere/presentation/feature/profile/bloc/profile_event.dart';
+import 'package:soul_sphere/presentation/feature/user_detail_page/bloc/user_detail_bloc.dart';
+import 'package:soul_sphere/presentation/feature/user_detail_page/bloc/user_detail_event.dart';
 import 'package:soul_sphere/presentation/feature/user_detail_page/widget/gradient_button.dart';
 
 class UserDetailBottomNavigationBar extends StatelessWidget {
@@ -24,7 +29,13 @@ class UserDetailBottomNavigationBar extends StatelessWidget {
               padding: const EdgeInsets.all(28.0),
               child: GradientButton(
                 text: 'Follow',
-                onPressed: () {},
+                onPressed: () {
+                  context
+                      .read<UserDetailBloc>()
+                      .add(FollowUser(currentUserId, user.id));
+
+                  context.read<ProfileBloc>().add(LoadProfile(currentUserId));
+                },
               ),
             ),
           ),

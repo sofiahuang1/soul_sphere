@@ -8,6 +8,7 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
 
   UserDetailBloc(this.userRepository) : super(UserDetailInitial()) {
     on<LoadUser>(_onLoadUser);
+    on<FollowUser>(_onFollowUser);
   }
 
   Future<void> _onLoadUser(
@@ -18,6 +19,20 @@ class UserDetailBloc extends Bloc<UserDetailEvent, UserDetailState> {
       emit(UserDetailLoaded(user));
     } catch (e) {
       emit(UserDetailError('Failed to load user data: ${e.toString()}'));
+    }
+  }
+
+  Future<void> _onFollowUser(
+      FollowUser event, Emitter<UserDetailState> emit) async {
+    emit(UserDetailLoading());
+    try {
+      await userRepository.followUser(event.currentUserId, event.userId);
+
+      final updatedUser = await userRepository.getUserById(event.userId);
+
+      emit(UserDetailLoaded(updatedUser));
+    } catch (e) {
+      emit(UserDetailError('Failed to follow user: ${e.toString()}'));
     }
   }
 }

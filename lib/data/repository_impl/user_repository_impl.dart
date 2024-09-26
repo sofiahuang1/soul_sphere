@@ -21,4 +21,26 @@ class UserRepositoryImpl implements UserRepository {
       throw Exception("Failed to fetch user data");
     }
   }
+
+  @override
+  Future<void> followUser(String currentUserId, String userId) async {
+    try {
+      final currentUserRef = firestore.collection('users').doc(currentUserId);
+      final followedUserRef = firestore.collection('users').doc(userId);
+
+      final batch = firestore.batch();
+
+      batch.update(currentUserRef, {
+        'followingCount': FieldValue.increment(1),
+      });
+
+      batch.update(followedUserRef, {
+        'followerCount': FieldValue.increment(1),
+      });
+
+      await batch.commit();
+    } catch (e) {
+      throw Exception('Failed to follow user: $e');
+    }
+  }
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:soul_sphere/domain/entities/post_entity.dart'; // Ensure the correct import path
+import 'package:soul_sphere/domain/entities/post_entity.dart';
 
 class PostItem extends StatelessWidget {
   final PostEntity post;
